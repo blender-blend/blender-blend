@@ -1,0 +1,107 @@
+body { background-color: var(--bg) !important; }
+
+/* HERO */
+.mod-hero { padding: 60px 24px 0; background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border); }
+.mod-hero-inner { max-width: 1100px; margin: 0 auto; }
+
+/* HOW TO USE STEPS */
+.mod-how-to {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  margin: 28px 0 24px; padding: 16px 20px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+}
+.mod-step { display: flex; align-items: center; gap: 8px; }
+.mod-step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.mod-step-text { font-size: 13px; color: var(--text-muted); }
+.mod-step-text strong { color: var(--text); }
+.mod-step-arrow { color: var(--text-muted); font-size: 16px; flex-shrink: 0; }
+
+/* GLOBAL SHORTCUTS */
+.mod-global-shortcuts { margin-bottom: 24px; padding: 18px 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
+.mod-global-title { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 14px; }
+.mod-global-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.mod-global-item { display: flex; align-items: center; gap: 10px; }
+.mod-global-action { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+
+/* TABS */
+.mod-tabs { display: flex; gap: 8px; padding-bottom: 24px; }
+.mod-tab {
+  display: flex; align-items: center; gap: 7px; padding: 10px 20px;
+  border-radius: 10px; border: 1px solid var(--border-hi);
+  background: var(--bg-surface); color: var(--text-muted);
+  font-size: 14px; font-weight: 600; font-family: var(--font-body);
+  cursor: pointer; transition: all 0.15s;
+}
+.mod-tab:hover { color: var(--text); background: var(--bg-card); }
+.mod-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* BODY */
+.mod-body { padding: 48px 24px 80px; background-color: var(--bg); }
+.mod-body-inner { max-width: 1100px; margin: 0 auto; }
+
+/* CATEGORY HEADER */
+.mod-category-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 28px; padding: 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; }
+.mod-cat-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.mod-cat-blue { background: rgba(74,158,255,0.12); color: #4a9eff; border: 1px solid rgba(74,158,255,0.25); }
+.mod-cat-orange { background: rgba(255,122,0,0.12); color: var(--accent); border: 1px solid rgba(255,122,0,0.25); }
+.mod-cat-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.mod-cat-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+.mod-cat-desc em { color: var(--text); font-style: normal; font-weight: 500; }
+
+/* MODIFIER CARDS GRID */
+.mod-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+.mod-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.mod-card:hover { border-color: var(--border-hi); transform: translateY(-2px); }
+
+.mod-card-header { display: flex; align-items: center; gap: 12px; }
+.mod-icon { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.mod-icon-blue { background: rgba(74,158,255,0.12); color: #4a9eff; border: 1px solid rgba(74,158,255,0.25); }
+.mod-icon-orange { background: rgba(255,122,0,0.12); color: var(--accent); border: 1px solid rgba(255,122,0,0.25); }
+
+.mod-name { font-family: var(--font-display); font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.mod-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.04em; }
+.mod-tag-generate { background: rgba(74,158,255,0.12); color: #4a9eff; border: 1px solid rgba(74,158,255,0.25); }
+.mod-tag-deform { background: rgba(255,122,0,0.12); color: var(--accent); border: 1px solid rgba(255,122,0,0.25); }
+
+.mod-what, .mod-use { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+.mod-what strong, .mod-use strong { color: var(--text); font-weight: 600; }
+
+/* SHORTCUTS inside card */
+.mod-shortcuts { background: var(--bg-surface); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.mod-shortcut-row { display: flex; align-items: center; gap: 10px; }
+.mod-shortcut-row span { font-size: 12px; color: var(--text-muted); }
+
+.mod-keys { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+.mod-keys kbd {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 2px 7px; background: var(--bg-card);
+  border: 1px solid var(--border-hi); border-bottom: 2px solid var(--border-hi);
+  border-radius: 5px; font-size: 11px; font-weight: 600;
+  font-family: var(--font-body); color: var(--text); white-space: nowrap;
+}
+.mod-keys span { font-size: 12px; color: var(--text-muted); }
+
+/* TIP */
+.mod-tip { font-size: 12px; color: var(--text-muted); background: var(--accent-dim); border: 1px solid rgba(255,122,0,0.2); border-radius: 8px; padding: 10px 12px; line-height: 1.5; }
+
+/* Light mode */
+[data-theme="light"] .mod-body { background-color: #fbf6ed; }
+[data-theme="light"] .mod-card { background: #fff; }
+[data-theme="light"] .mod-shortcuts { background: #f5f0e8; }
+[data-theme="light"] .mod-keys kbd { background: #fff; border-color: #bbb; border-bottom-color: #888; color: #222; }
+
+@media (max-width: 900px) { .mod-cards { grid-template-columns: 1fr; } .mod-global-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) {
+  .mod-hero { padding: 40px 16px 0; }
+  .mod-body { padding: 32px 16px 60px; }
+  .mod-how-to { flex-direction: column; align-items: flex-start; }
+  .mod-step-arrow { transform: rotate(90deg); }
+  .mod-global-grid { grid-template-columns: 1fr; }
+  .mod-tabs { flex-wrap: wrap; }
+}

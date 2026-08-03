@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender.Blend — Learn Blender, Made Simple</title>
+    <link rel="stylesheet" href="style-landing.css">
+  </head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <div class="nav-inner">
+
+      <a class="nav-logo" href="#">
+        <div class="logo-icon">
+          <div class="logo-ring"></div>
+          <div class="logo-dot"></div>
+        </div>
+        <span class="logo-text">blender<span class="logo-accent">.blend</span></span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#" class="nav-link active">Home</a></li>
+        <li><a href="shortcuts.html" class="nav-link">Shortcuts</a></li>
+        <li><a href="#workspaces" class="nav-link">Workspaces</a></li>
+        <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
+        <li><a href="glossary.html" class="nav-link">Glossary</a></li>
+        <li><a href="#tips" class="nav-link">Tips</a></li>
+        <li><a href="errors.html" class="nav-link">Errors</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <span class="version-badge">Blender 4.x</span>
+        <button class="dark-mode-toggle" id="darkToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="nav-cta">Get Started</button>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu" style="display:none">
+      <a href="#">Home</a>
+      <a href="shortcuts.html">Shortcuts</a>
+      <a href="#workspaces">Workspaces</a>
+      <a href="tutorials.html">Tutorials</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="#tips">Tips</a>
+      <a href="errors.html">Errors</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+
+    <div class="hero-inner">
+
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Made for absolute beginners
+      </div>
+
+      <h1 class="hero-title">
+        Blender doesn't have to<br>
+        <span class="hero-title-accent">feel overwhelming.</span>
+      </h1>
+
+      <p class="hero-desc">
+        The official Blender docs are written for people who already know Blender.<br>
+        This site is written for people who <em>don't</em> — yet.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#start" class="btn-primary">
+          Show me the basics
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="shortcuts.html" class="btn-secondary">
+          Jump to shortcuts
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">150+</span>
+          <span class="stat-label">shortcuts covered</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">9</span>
+          <span class="stat-label">sections</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">beginner friendly</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- floating keyboard visual -->
+    <div class="hero-visual" aria-hidden="true">
+      <div class="keyboard-card">
+        <div class="kb-label">Most used in Edit Mode</div>
+        <div class="kb-rows">
+          <div class="kb-row">
+            <div class="kb-key wide2">Tab</div>
+            <div class="kb-key">E</div>
+            <div class="kb-key">I</div>
+            <div class="kb-key">K</div>
+            <div class="kb-key">F</div>
+            <div class="kb-key">M</div>
+          </div>
+          <div class="kb-row">
+            <div class="kb-key highlight">G</div>
+            <div class="kb-key highlight">R</div>
+            <div class="kb-key highlight">S</div>
+            <div class="kb-key">1</div>
+            <div class="kb-key">2</div>
+            <div class="kb-key">3</div>
+          </div>
+          <div class="kb-row">
+            <div class="kb-key wide3">Ctrl</div>
+            <div class="kb-key wide2">R</div>
+            <div class="kb-key wide2">B</div>
+          </div>
+        </div>
+        <div class="kb-hint">
+          <span class="hint-key">G</span> Grab &nbsp;·&nbsp;
+          <span class="hint-key">R</span> Rotate &nbsp;·&nbsp;
+          <span class="hint-key">S</span> Scale
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ── LEARNING PATH CARDS ── -->
+  <section class="paths" id="start">
+    <div class="paths-inner">
+
+      <div class="paths-header">
+        <span class="section-eyebrow">Where do I start?</span>
+        <h2 class="section-title">Pick your level and begin</h2>
+        <p class="section-desc">Not sure where you fit? Start with Beginner — you can always jump ahead.</p>
+      </div>
+
+      <div class="paths-grid">
+
+        <!-- BEGINNER -->
+        <div class="path-card path-beginner">
+          <div class="path-card-top">
+            <div class="path-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <span class="path-tag tag-beginner">Beginner</span>
+          </div>
+          <h3 class="path-title">Just installed Blender</h3>
+          <p class="path-desc">Learn what each panel does, how to move around in 3D, and the 10 shortcuts every beginner needs to know first.</p>
+          <ul class="path-topics">
+            <li>Navigating the 3D viewport</li>
+            <li>Object mode vs Edit mode</li>
+            <li>Your first 10 shortcuts</li>
+            <li>Saving and opening files</li>
+          </ul>
+          <a href="shortcuts.html" class="path-cta">
+            Start here
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- INTERMEDIATE -->
+        <div class="path-card path-intermediate path-featured">
+          <div class="path-card-top">
+            <div class="path-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <span class="path-tag tag-intermediate">Intermediate</span>
+          </div>
+          <div class="path-popular-badge">Most visited</div>
+          <h3 class="path-title">Know the basics, want more</h3>
+          <p class="path-desc">Go deeper — modifiers, UV unwrapping, the shader editor, and how to use the node system for materials.</p>
+          <ul class="path-topics">
+            <li>Modifiers & non-destructive editing</li>
+            <li>UV unwrapping basics</li>
+            <li>Shader / Node editor</li>
+            <li>Rendering with Cycles & EEVEE</li>
+          </ul>
+          <a href="shortcuts.html#shader" class="path-cta">
+            Continue learning
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- ADVANCED -->
+        <div class="path-card path-advanced">
+          <div class="path-card-top">
+            <div class="path-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <span class="path-tag tag-advanced">Advanced</span>
+          </div>
+          <h3 class="path-title">Ready for the deep end</h3>
+          <p class="path-desc">Geometry nodes, rigging, animation curves, scripting with Python — for users who know their way around already.</p>
+          <ul class="path-topics">
+            <li>Geometry nodes</li>
+            <li>Rigging & armatures</li>
+            <li>Animation graph editor</li>
+            <li>Python scripting basics</li>
+          </ul>
+          <a href="shortcuts.html#shader" class="path-cta">
+            Explore advanced
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── WORKSPACE EXPLAINER ── -->
+  <section class="workspaces" id="workspaces">
+    <div class="workspaces-inner">
+
+      <div class="ws-header">
+        <span class="section-eyebrow">Understanding Blender</span>
+        <h2 class="section-title">What am I even looking at?</h2>
+        <p class="section-desc">When you first open Blender, it looks like a cockpit. Here's what each part actually does — in plain English.</p>
+      </div>
+
+      <div class="ws-grid">
+
+        <div class="ws-card">
+          <div class="ws-card-icon" style="--icon-color:#4a9eff; --icon-bg:rgba(74,158,255,0.1); --icon-border:rgba(74,158,255,0.25);">
+            <!-- Blender 3D Viewport: cube wireframe -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="ws-card-content">
+            <div class="ws-card-label">The big area in the middle</div>
+            <h3 class="ws-card-title">3D Viewport</h3>
+            <p class="ws-card-desc">This is your canvas. Everything you build, move, and shape happens here. Think of it as your "stage" where 3D objects live.</p>
+            <div class="ws-card-tip">
+              <span class="tip-key">Middle Mouse</span> to rotate &nbsp;·&nbsp;
+              <span class="tip-key">Scroll</span> to zoom
+            </div>
+          </div>
+        </div>
+
+        <div class="ws-card">
+          <div class="ws-card-icon" style="--icon-color:#c77dff; --icon-bg:rgba(199,125,255,0.1); --icon-border:rgba(199,125,255,0.25);">
+            <!-- Blender Outliner: scene tree / funnel icon -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+            </svg>
+          </div>
+          <div class="ws-card-content">
+            <div class="ws-card-label">Top right corner</div>
+            <h3 class="ws-card-title">Outliner</h3>
+            <p class="ws-card-desc">A list of every object in your scene — like a file explorer but for 3D objects. Click any item to select it in the viewport.</p>
+            <div class="ws-card-tip">
+              <span class="tip-key">Click</span> to select &nbsp;·&nbsp;
+              <span class="tip-key">H</span> to hide
+            </div>
+          </div>
+        </div>
+
+        <div class="ws-card">
+          <div class="ws-card-icon" style="--icon-color:#ff7a00; --icon-bg:rgba(255,122,0,0.1); --icon-border:rgba(255,122,0,0.25);">
+            <!-- Blender Properties: horizontal sliders icon -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="6" x2="20" y2="6"/>
+              <line x1="4" y1="12" x2="20" y2="12"/>
+              <line x1="4" y1="18" x2="20" y2="18"/>
+              <circle cx="8" cy="6" r="2" fill="currentColor" stroke="none"/>
+              <circle cx="15" cy="12" r="2" fill="currentColor" stroke="none"/>
+              <circle cx="10" cy="18" r="2" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div class="ws-card-content">
+            <div class="ws-card-label">Bottom right corner</div>
+            <h3 class="ws-card-title">Properties Panel</h3>
+            <p class="ws-card-desc">Settings for everything — your object's material, modifiers, render settings. It changes based on what you have selected.</p>
+            <div class="ws-card-tip">
+              <span class="tip-key">N</span> to open side panel &nbsp;·&nbsp;
+              <span class="tip-key">T</span> for toolbar
+            </div>
+          </div>
+        </div>
+
+        <div class="ws-card">
+          <div class="ws-card-icon" style="--icon-color:#1d9e75; --icon-bg:rgba(29,158,117,0.1); --icon-border:rgba(29,158,117,0.25);">
+            <!-- Blender Timeline: clock icon -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <polyline points="12 7 12 12 15.5 15.5"/>
+            </svg>
+          </div>
+          <div class="ws-card-content">
+            <div class="ws-card-label">Bottom strip</div>
+            <h3 class="ws-card-title">Timeline</h3>
+            <p class="ws-card-desc">Controls animation playback. Even if you're not animating, it shows your current frame. Press Space to play any animation.</p>
+            <div class="ws-card-tip">
+              <span class="tip-key">Space</span> play/pause &nbsp;·&nbsp;
+              <span class="tip-key">← →</span> frame by frame
+            </div>
+          </div>
+        </div>
+
+        <div class="ws-card">
+          <div class="ws-card-icon" style="--icon-color:#ffd166; --icon-bg:rgba(255,209,102,0.1); --icon-border:rgba(255,209,102,0.25);">
+            <!-- Blender Topbar: menu bar strips -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="3" rx="1" fill="currentColor" stroke="none" opacity="0.8"/>
+              <line x1="3" y1="11" x2="21" y2="11"/>
+              <line x1="3" y1="15" x2="15" y2="15"/>
+              <line x1="3" y1="19" x2="18" y2="19"/>
+            </svg>
+          </div>
+          <div class="ws-card-content">
+            <div class="ws-card-label">Header bar at the top</div>
+            <h3 class="ws-card-title">Header / Topbar</h3>
+            <p class="ws-card-desc">File, Edit, Render menus live here. Also shows which workspace you're in — like Layout, Modeling, Shading, Animation.</p>
+            <div class="ws-card-tip">
+              <span class="tip-key">F3</span> to search any command
+            </div>
+          </div>
+        </div>
+
+        <div class="ws-card ws-card-highlight">
+          <div class="ws-card-icon" style="--icon-color:#ff7a00; --icon-bg:rgba(255,122,0,0.12); --icon-border:rgba(255,122,0,0.3);">
+            <!-- Blender Edit/Object mode: vertex mesh icon -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="5" cy="5" r="2" fill="currentColor" stroke="none"/>
+              <circle cx="19" cy="5" r="2" fill="currentColor" stroke="none"/>
+              <circle cx="5" cy="19" r="2" fill="currentColor" stroke="none"/>
+              <circle cx="19" cy="19" r="2" fill="currentColor" stroke="none"/>
+              <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" opacity="0.5"/>
+              <line x1="5" y1="5" x2="19" y2="5"/>
+              <line x1="5" y1="5" x2="5" y2="19"/>
+              <line x1="19" y1="5" x2="19" y2="19"/>
+              <line x1="5" y1="19" x2="19" y2="19"/>
+              <line x1="5" y1="5" x2="12" y2="12"/>
+              <line x1="19" y1="5" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <div class="ws-card-content">
+            <div class="ws-card-label">Beginner tip</div>
+            <h3 class="ws-card-title">Object Mode vs Edit Mode</h3>
+            <p class="ws-card-desc">This confuses every beginner. <strong>Object Mode</strong> = move whole objects around. <strong>Edit Mode</strong> = change the shape of an object. Press <span class="tip-key">Tab</span> to switch between them.</p>
+            <div class="ws-card-tip">
+              <span class="tip-key">Tab</span> switch modes &nbsp;·&nbsp;
+              <span class="tip-key">Ctrl+Tab</span> mode menu
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── QUICK SHORTCUTS STRIP ── -->
+  <section class="qshortcuts" id="shortcuts">
+    <div class="qshortcuts-inner">
+
+      <div class="qs-header">
+        <div class="qs-header-left">
+          <span class="section-eyebrow">Most used shortcuts</span>
+          <h2 class="section-title">The 12 shortcuts every beginner needs</h2>
+          <p class="section-desc">You don't need to memorize all 150+ shortcuts. Start with these — they cover 80% of what you'll do every day.</p>
+        </div>
+        <a href="shortcuts.html" class="qs-view-all">
+          View all shortcuts
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="qs-grid">
+
+        <div class="qs-card">
+          <div class="qs-keys"><span class="qs-key">G</span></div>
+          <div class="qs-info">
+            <span class="qs-action">Grab / Move</span>
+            <span class="qs-mode">Object & Edit Mode</span>
+          </div>
+        </div>
+
+        <div class="qs-card">
+          <div class="qs-keys"><span class="qs-key">R</span></div>
+          <div class="qs-info">
+            <span class="qs-action">Rotate</span>
+            <span class="qs-mode">Object & Edit Mode</span>
+          </div>
+        </div>
+
+        <div class="qs-card">
+          <div class="qs-keys"><span class="qs-key">S</span></div>
+          <div class="qs-info">
+            <span class="qs-action">Scale</span>
+            <span class="qs-mode">Object & Edit Mode</span>
+          </div>
+        </div>
+
+        <div class="qs-card">
+          <div class="qs-keys"><span class="qs-key qs-key-mod">Tab</span></div>
+          <div class="qs-info">
+            <span class="qs-action">Toggle Edit / Object Mode</span>
+            <span class="qs-mode">Anywhere in viewport</span>
+          </div>
+        </div>
+
+        <div class="qs-card">
+          <div class="qs-keys">
+            <span class="qs-key qs-key-mod">Ctrl</span>
+            <span class="qs-plus">+</span>
+            <span class="qs-key">Z</span>
+          </div>
+          <div class="qs-info">
+            <span class="qs-action">Undo</span>
+            <span class="qs-mode">Global</span>
+          </div>
+        </div>
+
+        <div class="qs-card">
+          <div class="qs-keys">
+            <span class="qs-key qs-key-mod">Shift</span>
+            <span class="qs-plus">+</span>
+            <span class="qs-key">A</span>
+          </div>
+          <div class="qs-info">
+            <span class="qs-action">Add Object</span>
+            <span class="qs-mode">Object Mode</span>
+          </div>
+        </div>
+
+        <div class="qs-card">
+          <div class="qs-keys"><span class="qs-key">E</span></div>
+          <div class="qs-info">
+            <span class="qs-action">Extrude</span>
+            <span class="qs-mode">Edit Mode</span>
+          </div>
+        </div>
+
+        <div class="qs-card">
+          <div class="qs-keys">
+            <span class="qs-key qs-key-mod">Ctrl</span>
+            <span class="qs-plus">+</span>
+            <span class="qs-key">R</span>
+          </div>
+          <div class="qs-info">
+            <span class="qs-action">Loop Cut</span>
+            <span class="qs-mode">Edit Mode</span>
+          </div>
+        </div>
+
+        <div class="qs-card">
+          <div class="qs-keys"><span class="qs-key qs-key-mod">Numpad 0</span></div>
+          <div class="qs-info">
+            <span class="qs-action">Camera View</span>
+            <span class="qs-mode">3D Viewport</span>
+          </div>
+        </div>
+
+        <div class="qs-card">
+          <div class="qs-keys"><span class="qs-key">F12</span></div>
+          <div class="qs-info">
+            <span class="qs-action">Render Image</span>
+            <span class="qs-mode">Global</span>
+          </div>
+        </div>
+
+        <div class="qs-card">
+          <div class="qs-keys">
+            <span class="qs-key qs-key-mod">Shift</span>
+            <span class="qs-plus">+</span>
+            <span class="qs-key">D</span>
+          </div>
+          <div class="qs-info">
+            <span class="qs-action">Duplicate</span>
+            <span class="qs-mode">Object & Edit Mode</span>
+          </div>
+        </div>
+
+        <div class="qs-card">
+          <div class="qs-keys"><span class="qs-key">F3</span></div>
+          <div class="qs-info">
+            <span class="qs-action">Search Commands</span>
+            <span class="qs-mode">Global — use when lost!</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="qs-footer-note">
+        💡 <strong>Pro tip:</strong> After pressing <span class="tip-key">G</span>, <span class="tip-key">R</span>, or <span class="tip-key">S</span> — press <span class="tip-key">X</span>, <span class="tip-key">Y</span>, or <span class="tip-key">Z</span> to lock the action to an axis.
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ── TIP BANNER ── -->
+  <section class="tips" id="tips">
+    <div class="tips-inner">
+
+      <div class="tips-header">
+        <span class="section-eyebrow">Beginner Tips</span>
+        <h2 class="section-title">Things the docs don't tell you</h2>
+        <p class="section-desc">Small things that make a huge difference when you're just starting out.</p>
+      </div>
+
+      <div class="tip-banner-wrap">
+        <div class="tip-banner-card" id="tipCard">
+          <div class="tip-banner-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div class="tip-banner-body">
+            <span class="tip-banner-label">Tip <span id="tipNum">1</span> of <span id="tipTotal">8</span></span>
+            <p class="tip-banner-text" id="tipText"></p>
+          </div>
+          <div class="tip-banner-controls">
+            <button class="tip-btn" id="tipPrev" aria-label="Previous tip">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="tip-btn" id="tipNext" aria-label="Next tip">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="tip-dots" id="tipDots"></div>
+      </div>
+
+      <div class="tips-grid">
+
+        <div class="tips-card">
+          <div class="tips-card-num">01</div>
+          <h3 class="tips-card-title">Right-click to cancel</h3>
+          <p class="tips-card-desc">Pressed G, R, or S by accident? Just right-click to cancel the action without changing anything. Way faster than Ctrl+Z.</p>
+        </div>
+
+        <div class="tips-card">
+          <div class="tips-card-num">02</div>
+          <h3 class="tips-card-title">F3 is your best friend</h3>
+          <p class="tips-card-desc">Can't find something in the menus? Press F3 anywhere to search every single command in Blender by name.</p>
+        </div>
+
+        <div class="tips-card">
+          <div class="tips-card-num">03</div>
+          <h3 class="tips-card-title">Numpad controls your view</h3>
+          <p class="tips-card-desc">Numpad 1 = Front, 3 = Right, 7 = Top, 0 = Camera. No numpad? Go to Edit → Preferences → Input → Emulate Numpad.</p>
+        </div>
+
+        <div class="tips-card">
+          <div class="tips-card-num">04</div>
+          <h3 class="tips-card-title">Save often with Ctrl+S</h3>
+          <p class="tips-card-desc">Blender can crash. Save every few minutes. Even better — go to Edit → Preferences → Save & Load and enable Auto Save.</p>
+        </div>
+
+        <div class="tips-card">
+          <div class="tips-card-num">05</div>
+          <h3 class="tips-card-title">X, Y, Z lock your axis</h3>
+          <p class="tips-card-desc">After pressing G, R, or S — press X, Y, or Z to constrain movement to that axis. Press twice (e.g. YY) to use local axis.</p>
+        </div>
+
+        <div class="tips-card">
+          <div class="tips-card-num">06</div>
+          <h3 class="tips-card-title">Hover + shortcut = context</h3>
+          <p class="tips-card-desc">Blender shortcuts only work in the panel your mouse is hovering over. If a shortcut does nothing — move your mouse into the right panel first.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <script>
+    // Hamburger menu
+    const ham = document.getElementById('hamburger');
+    const menu = document.getElementById('mobileMenu');
+    ham.addEventListener('click', () => {
+      menu.classList.toggle('open');
+      ham.classList.toggle('open');
+    });
+
+    // Side drawer
+    const drawer  = document.getElementById('sideDrawer');
+    const overlay = document.getElementById('sdOverlay');
+    const sdClose = document.getElementById('sdClose');
+    function openDrawer()  { drawer.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow = ''; }
+    ham.addEventListener('click', openDrawer);
+    sdClose.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+    // Dark mode toggle
+    const darkToggle = document.getElementById('darkToggle');
+    const htmlEl = document.documentElement;
+
+    // Load saved preference
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+
+    darkToggle.addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    // Rotating tips
+    const tips = [
+      "Right-click cancels any action (G, R, S) without undoing — faster than Ctrl+Z.",
+      "Press F3 anywhere to search every Blender command by name. Never dig through menus again.",
+      "After G, R, or S — press X, Y, or Z to lock movement to that axis.",
+      "Hover your mouse over the correct panel before using a shortcut — context matters in Blender.",
+      "Numpad 1 = Front view, 3 = Right, 7 = Top, 0 = Camera view.",
+      "Enable Auto Save: Edit → Preferences → Save & Load → Auto Save. Blender can crash.",
+      "Tab switches between Object Mode and Edit Mode — the two most important modes for beginners.",
+      "Press A to select everything, Alt+A to deselect everything."
+    ];
+
+    let current = 0;
+    const tipText = document.getElementById('tipText');
+    const tipNum = document.getElementById('tipNum');
+    const tipTotal = document.getElementById('tipTotal');
+    const tipDots = document.getElementById('tipDots');
+    const tipCard = document.getElementById('tipCard');
+
+    tipTotal.textContent = tips.length;
+
+    function buildDots() {
+      tipDots.innerHTML = '';
+      tips.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'tip-dot' + (i === current ? ' active' : '');
+        d.setAttribute('aria-label', 'Go to tip ' + (i + 1));
+        d.addEventListener('click', () => showTip(i));
+        tipDots.appendChild(d);
+      });
+    }
+
+    function showTip(index) {
+      tipCard.classList.add('tip-fade');
+      setTimeout(() => {
+        current = (index + tips.length) % tips.length;
+        tipText.textContent = tips[current];
+        tipNum.textContent = current + 1;
+        buildDots();
+        tipCard.classList.remove('tip-fade');
+      }, 200);
+    }
+
+    document.getElementById('tipNext').addEventListener('click', () => showTip(current + 1));
+    document.getElementById('tipPrev').addEventListener('click', () => showTip(current - 1));
+
+    // Auto-rotate every 5 seconds
+    let autoTimer = setInterval(() => showTip(current + 1), 5000);
+    tipCard.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    tipCard.addEventListener('mouseleave', () => {
+      autoTimer = setInterval(() => showTip(current + 1), 5000);
+    });
+
+    showTip(0);
+  </script>
+
+
+
+  <!-- ── ERRORS BANNER ── -->
+  <section class="errors-cta-section">
+    <div class="errors-cta-inner">
+      <div class="errors-cta-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="errors-cta-text">
+        <h3>Something not working?</h3>
+        <p>Black faces, missing objects, render is all black — check our Common Errors page for quick fixes to the most frustrating beginner problems.</p>
+      </div>
+      <a href="errors.html" class="errors-cta-btn">
+        View Common Errors
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <a class="footer-logo" href="#">
+            <div class="logo-icon">
+              <div class="logo-ring"></div>
+              <div class="logo-dot"></div>
+            </div>
+            <span class="logo-text">blender<span class="logo-accent">.blend</span></span>
+          </a>
+          <p class="footer-tagline">A beginner-friendly guide to Blender — built by learners, for learners.</p>
+          <span class="footer-version">For Blender 4.x</span>
+        </div>
+
+        <div class="footer-links-group">
+          <div class="footer-col">
+            <h4 class="footer-col-title">Learn</h4>
+            <ul>
+              <li><a href="#start">Getting Started</a></li>
+              <li><a href="#workspaces">Workspaces</a></li>
+              <li><a href="#shortcuts">Top Shortcuts</a></li>
+              <li><a href="#tips">Beginner Tips</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-title">Reference</h4>
+            <ul>
+              <li><a href="shortcuts.html">All Shortcuts</a></li>
+              <li><a href="shortcuts.html#navigation">Navigation</a></li>
+              <li><a href="shortcuts.html#edit">Edit Mode</a></li>
+              <li><a href="shortcuts.html#shader">Shader Editor</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-title">Official</h4>
+            <ul>
+              <li><a href="https://www.blender.org" target="_blank" rel="noopener">Blender.org ↗</a></li>
+              <li><a href="https://docs.blender.org" target="_blank" rel="noopener">Official Docs ↗</a></li>
+              <li><a href="https://www.blender.org/support/" target="_blank" rel="noopener">Community ↗</a></li>
+              <li><a href="https://www.youtube.com/@blenderofficial" target="_blank" rel="noopener">YouTube ↗</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">
+          Not affiliated with the Blender Foundation. Made for educational purposes.
+        </p>
+        <div class="footer-bottom-links">
+          <a href="#">Back to top ↑</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- SIDE DRAWER -->
+  <div class="sd-overlay" id="sdOverlay"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <div class="sd-header">
+      <span class="sd-logo">blender<span style="color:var(--accent)">.blend</span></span>
+      <button class="sd-close" id="sdClose" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="sd-nav">
+      <a href="index.html" class="sd-link active"><span class="sd-icon">🏠</span>Home</a>
+      <a href="shortcuts.html" class="sd-link"><span class="sd-icon">⌨️</span>Shortcuts</a>
+      <a href="modifiers.html" class="sd-link"><span class="sd-icon">🔧</span>Modifiers</a>
+      <a href="tutorials.html" class="sd-link"><span class="sd-icon">🎬</span>Tutorials</a>
+      <a href="glossary.html" class="sd-link"><span class="sd-icon">📖</span>Glossary</a>
+      <a href="errors.html" class="sd-link"><span class="sd-icon">⚠️</span>Errors</a>
+      <a href="search.html" class="sd-link"><span class="sd-icon">🔍</span>Search</a>
+    </nav>
+    <div class="sd-footer"><span class="sd-footer-text">For Blender 4.x</span></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+body { background-color: var(--bg) !important; }
+
+/* HERO */
+.srch-hero {
+  padding: 60px 24px 0;
+  background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg) 100%);
+  border-bottom: 1px solid var(--border);
+}
+.srch-hero-inner { max-width: 860px; margin: 0 auto; }
+
+/* SEARCH INPUT */
+.srch-wrap {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg-card); border: 2px solid var(--border-hi);
+  border-radius: 14px; padding: 14px 20px;
+  margin: 28px 0 20px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.srch-wrap:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-dim); }
+.srch-wrap svg { color: var(--text-muted); flex-shrink: 0; }
+.srch-wrap input { flex: 1; background: none; border: none; outline: none; font-size: 18px; font-family: var(--font-body); color: var(--text); }
+.srch-wrap input::placeholder { color: var(--text-muted); }
+.srch-clear { background: none; border: none; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; padding: 2px; border-radius: 4px; transition: color 0.15s; }
+.srch-clear:hover { color: var(--accent); }
+
+/* FILTERS */
+.srch-filters { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 24px; }
+.srch-filter {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 8px;
+  border: 1px solid var(--border-hi); background: var(--bg-surface);
+  color: var(--text-muted); font-size: 13px; font-weight: 500;
+  font-family: var(--font-body); cursor: pointer; transition: all 0.15s;
+}
+.srch-filter:hover { color: var(--accent); border-color: rgba(255,122,0,0.35); background: var(--accent-dim); }
+.srch-filter.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.srch-filter-count { font-size: 11px; font-weight: 600; opacity: 0.8; }
+
+/* BODY */
+.srch-body { padding: 32px 24px 80px; background-color: var(--bg); }
+.srch-body-inner { max-width: 860px; margin: 0 auto; }
+.srch-status { margin-bottom: 20px; }
+.srch-status span { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+/* RESULT CARDS */
+.srch-results { display: flex; flex-direction: column; gap: 10px; }
+
+.srch-result-card {
+  display: flex; flex-direction: column; gap: 8px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px 20px;
+  text-decoration: none; color: var(--text);
+  transition: border-color 0.15s, transform 0.15s;
+}
+.srch-result-card:hover { border-color: rgba(255,122,0,0.4); transform: translateX(4px); }
+
+.src-card-top { display: flex; align-items: center; gap: 10px; }
+.src-type-badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; border: 1px solid; letter-spacing: 0.04em; }
+.src-section { font-size: 12px; color: var(--text-muted); }
+
+.src-title { font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.4; }
+.src-title mark { background: rgba(255,122,0,0.2); color: var(--accent); border-radius: 3px; padding: 0 2px; }
+
+.src-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+.src-desc mark { background: rgba(255,122,0,0.15); color: var(--accent); border-radius: 3px; padding: 0 2px; }
+
+.src-link { font-size: 12px; color: var(--accent); display: flex; align-items: center; gap: 4px; font-weight: 500; margin-top: 2px; }
+
+/* EMPTY STATE */
+.srch-empty {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 12px; padding: 60px 24px; text-align: center;
+}
+.srch-empty svg { color: var(--border-hi); }
+.srch-empty h3 { font-size: 18px; font-weight: 600; color: var(--text); }
+.srch-empty p { font-size: 14px; color: var(--text-muted); }
+
+/* Light mode */
+[data-theme="light"] .srch-body { background-color: #fbf6ed; }
+[data-theme="light"] .srch-result-card { background: #fff; }
+[data-theme="light"] .srch-result-card:hover { background: #fffaf5; }
+
+@media (max-width: 600px) {
+  .srch-hero { padding: 40px 16px 0; }
+  .srch-wrap { padding: 12px 14px; }
+  .srch-wrap input { font-size: 16px; }
+  .srch-body { padding: 24px 16px 60px; }
+}

@@ -1,0 +1,214 @@
+/* ── GLOSSARY HERO ── */
+.glossary-hero {
+  padding: 60px 24px 40px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg) 100%);
+}
+
+.glossary-hero-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.glossary-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-hi);
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin: 28px 0 20px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.glossary-search-wrap:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.glossary-search-wrap svg {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.glossary-search-wrap input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  font-family: var(--font-body);
+  color: var(--text);
+}
+
+.glossary-search-wrap input::placeholder {
+  color: var(--text-muted);
+}
+
+.glossary-count {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+/* ── ALPHA FILTER ── */
+.glossary-alpha-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.alpha-btn {
+  min-width: 36px;
+  height: 32px;
+  padding: 0 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--font-display);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.alpha-btn:hover {
+  color: var(--accent);
+  border-color: rgba(255,122,0,0.4);
+  background: var(--accent-dim);
+}
+
+.alpha-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* ── GLOSSARY BODY ── */
+.glossary-body {
+  padding: 48px 24px 80px;
+}
+
+.glossary-body-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.no-results-msg {
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-hi);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* ── TERM CARDS ── */
+.glossary-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.g-term {
+  display: flex;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: border-color 0.2s, transform 0.15s;
+}
+
+.g-term:hover {
+  border-color: var(--border-hi);
+  transform: translateX(4px);
+}
+
+.g-letter-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--accent-dim);
+  border: 1px solid rgba(255,122,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.g-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.g-term-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.g-term-def {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.g-term-def kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hi);
+  border-bottom: 2px solid var(--border-hi);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  font-family: var(--font-body);
+}
+
+.g-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  width: fit-content;
+  letter-spacing: 0.04em;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hi);
+  color: var(--text-muted);
+}
+
+/* Tag colors by category */
+.g-tag:where([class*="Modeling"]) { background: rgba(74,158,255,0.1); color: #4a9eff; border-color: rgba(74,158,255,0.25); }
+.g-tag:where([class*="Animation"]) { background: rgba(199,125,255,0.1); color: #c77dff; border-color: rgba(199,125,255,0.25); }
+.g-tag:where([class*="Rendering"]) { background: rgba(255,209,102,0.1); color: #ffd166; border-color: rgba(255,209,102,0.25); }
+.g-tag:where([class*="Shading"]) { background: rgba(255,122,0,0.1); color: var(--accent); border-color: rgba(255,122,0,0.25); }
+.g-tag:where([class*="Modifier"]) { background: rgba(29,158,117,0.1); color: #1d9e75; border-color: rgba(29,158,117,0.25); }
+
+@media (max-width: 600px) {
+  .g-term { flex-direction: column; gap: 10px; }
+  .glossary-hero { padding: 40px 20px 28px; }
+  .glossary-body { padding: 32px 20px 60px; }
+}
+
+@media (max-width: 480px) {
+  .glossary-search-wrap { flex-wrap: wrap; }
+  .glossary-count { width: 100%; }
+  .glossary-alpha-filter { gap: 4px; }
+  .alpha-btn { min-width: 30px; height: 28px; padding: 0 6px; font-size: 12px; }
+}
