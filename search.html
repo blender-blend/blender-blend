@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search — blender.blend</title>
+  <link rel="stylesheet" href="style-landing.css">
+  <link rel="stylesheet" href="style-search.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <div class="logo-icon"><div class="logo-ring"></div><div class="logo-dot"></div></div>
+        <span class="logo-text">blender<span class="logo-accent">.blend</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shortcuts.html" class="nav-link">Shortcuts</a></li>
+        <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
+        <li><a href="glossary.html" class="nav-link">Glossary</a></li>
+        <li><a href="errors.html" class="nav-link">Errors</a></li>
+        <li><a href="search.html" class="nav-link nav-search-icon active" aria-label="Search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a></li>
+      </ul>
+      <div class="nav-right">
+        <span class="version-badge">Blender 4.x</span>
+        <button class="dark-mode-toggle" id="darkToggle" aria-label="Toggle dark mode">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="nav-cta" onclick="location.href='index.html#start'">Get Started</button>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" style="display:none">
+      <a href="index.html">Home</a>
+      <a href="shortcuts.html">Shortcuts</a>
+      <a href="tutorials.html">Tutorials</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="errors.html">Errors</a>
+      <a href="search.html">Search</a>
+    </div>
+  </nav>
+
+  <!-- SEARCH HERO -->
+  <section class="srch-hero">
+    <div class="srch-hero-inner">
+      <span class="section-eyebrow">Global Search</span>
+      <h1 class="section-title">Search everything</h1>
+      <p class="section-desc">Shortcuts, glossary terms, common errors, and tutorials — all in one place.</p>
+
+      <div class="srch-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="globalSearch" placeholder="Try 'extrude', 'render', 'mesh', 'black faces'..." autocomplete="off" autofocus/>
+        <button class="srch-clear" id="clearBtn" style="display:none" aria-label="Clear search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Type filter -->
+      <div class="srch-filters">
+        <button class="srch-filter active" data-type="all">All <span class="srch-filter-count" id="count-all">168</span></button>
+        <button class="srch-filter" data-type="Shortcut">Shortcuts <span class="srch-filter-count" id="count-Shortcut">114</span></button>
+        <button class="srch-filter" data-type="Glossary">Glossary <span class="srch-filter-count" id="count-Glossary">33</span></button>
+        <button class="srch-filter" data-type="Error Fix">Errors <span class="srch-filter-count" id="count-Error Fix">12</span></button>
+        <button class="srch-filter" data-type="Tutorial">Tutorials <span class="srch-filter-count" id="count-Tutorial">9</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="srch-body">
+    <div class="srch-body-inner">
+
+      <div class="srch-status" id="srchStatus">
+        <span id="srchStatusText">Showing all 168 items — type to search</span>
+      </div>
+
+      <div class="srch-results" id="srchResults"></div>
+
+      <div class="srch-empty" id="srchEmpty" style="display:none">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <h3>No results found</h3>
+        <p>Try different keywords — e.g. "rotate", "material", "UV"</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+
+  <!-- NEXT TOPIC — last page -->
+  <section class="next-topic-section next-topic-end">
+    <div class="next-topic-inner">
+      <div class="nt-end-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3 class="nt-end-title">You've reached the end!</h3>
+      <p class="nt-end-desc">You've explored everything on blender.blend. Go back to the beginning or jump to any section.</p>
+      <a href="index.html" class="nt-btn-home">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        Back to Home
+      </a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html">
+            <div class="logo-icon"><div class="logo-ring"></div><div class="logo-dot"></div></div>
+            <span class="logo-text">blender<span class="logo-accent">.blend</span></span>
+          </a>
+          <p class="footer-tagline">A beginner-friendly guide to Blender — built by learners, for learners.</p>
+          <span class="footer-version">For Blender 4.x</span>
+        </div>
+        <div class="footer-links-group">
+          <div class="footer-col">
+            <h4 class="footer-col-title">Learn</h4>
+            <ul>
+              <li><a href="index.html#start">Getting Started</a></li>
+              <li><a href="index.html#workspaces">Workspaces</a></li>
+              <li><a href="index.html#tips">Beginner Tips</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-title">Reference</h4>
+            <ul>
+              <li><a href="shortcuts.html">All Shortcuts</a></li>
+              <li><a href="glossary.html">Glossary</a></li>
+              <li><a href="tutorials.html">Tutorials</a></li>
+              <li><a href="errors.html">Common Errors</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-title">Official</h4>
+            <ul>
+              <li><a href="https://www.blender.org" target="_blank" rel="noopener">Blender.org ↗</a></li>
+              <li><a href="https://docs.blender.org" target="_blank" rel="noopener">Official Docs ↗</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">Not affiliated with the Blender Foundation. Made for educational purposes.</p>
+        <div class="footer-bottom-links"><a href="#">Back to top ↑</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="search-index.js">
+    // Side drawer
+    const drawer  = document.getElementById('sideDrawer');
+    const overlay = document.getElementById('sdOverlay');
+    const sdClose = document.getElementById('sdClose');
+    function openDrawer()  { drawer.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow = ''; }
+    ham.addEventListener('click', openDrawer);
+    sdClose.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+  </script>
+  <script>
+    // Dark mode
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    document.getElementById('darkToggle').addEventListener('click', () => {
+      const next = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    // ── Hamburger / Side Drawer ──
+    const drawer  = document.getElementById('sideDrawer');
+    const overlay = document.getElementById('sdOverlay');
+    const sdClose = document.getElementById('sdClose');
+    function openDrawer()  { drawer.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow=''; }
+    if(ham)     ham.addEventListener('click', openDrawer);
+    if(sdClose) sdClose.addEventListener('click', closeDrawer);
+    if(overlay) overlay.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeDrawer(); });
+
+
+    // Hamburger
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    });
+
+    // ── Search engine ──
+    const input     = document.getElementById('globalSearch');
+    const clearBtn  = document.getElementById('clearBtn');
+    const results   = document.getElementById('srchResults');
+    const empty     = document.getElementById('srchEmpty');
+    const statusTxt = document.getElementById('srchStatusText');
+    const filters   = document.querySelectorAll('.srch-filter');
+
+    let activeType = 'all';
+
+    const TYPE_COLORS = {
+      'Shortcut':  { bg: 'rgba(74,158,255,0.12)',  color: '#4a9eff',  border: 'rgba(74,158,255,0.25)'  },
+      'Glossary':  { bg: 'rgba(255,122,0,0.12)',   color: '#ff7a00',  border: 'rgba(255,122,0,0.25)'   },
+      'Error Fix': { bg: 'rgba(226,75,74,0.12)',   color: '#e24b4a',  border: 'rgba(226,75,74,0.25)'   },
+      'Tutorial':  { bg: 'rgba(29,158,117,0.12)',  color: '#1d9e75',  border: 'rgba(29,158,117,0.25)'  },
+    };
+
+    function highlight(text, query) {
+      if (!query) return text;
+      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+    }
+
+    function renderResults(items, query) {
+      if (items.length === 0) {
+        results.innerHTML = '';
+        empty.style.display = 'flex';
+        statusTxt.textContent = 'No results found';
+        return;
+      }
+
+      empty.style.display = 'none';
+      const q = query.toLowerCase().trim();
+
+      statusTxt.textContent = q
+        ? `${items.length} result${items.length !== 1 ? 's' : ''} for "${query}"`
+        : `Showing all ${items.length} items`;
+
+      results.innerHTML = items.map(item => {
+        const c = TYPE_COLORS[item.type] || TYPE_COLORS['Shortcut'];
+        return `
+          <a href="${item.url}" class="srch-result-card">
+            <div class="src-card-top">
+              <span class="src-type-badge" style="background:${c.bg};color:${c.color};border-color:${c.border}">${item.type}</span>
+              <span class="src-section">${item.section}</span>
+            </div>
+            <h3 class="src-title">${highlight(item.title, q)}</h3>
+            ${item.desc ? `<p class="src-desc">${highlight(item.desc, q)}</p>` : ''}
+            <span class="src-link">
+              Go to ${item.url.replace('.html','').replace('landing','home')}
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </a>`;
+      }).join('');
+    }
+
+    function updateCounts(query) {
+      const q = query.toLowerCase().trim();
+      const types = ['Shortcut', 'Glossary', 'Error Fix', 'Tutorial'];
+      const allFiltered = q
+        ? SEARCH_INDEX.filter(i => (i.title + i.desc + i.tags).toLowerCase().includes(q))
+        : SEARCH_INDEX;
+
+      document.getElementById('count-all').textContent = allFiltered.length;
+      types.forEach(t => {
+        const el = document.getElementById('count-' + t);
+        if (el) el.textContent = allFiltered.filter(i => i.type === t).length;
+      });
+    }
+
+    function doSearch() {
+      const q = input.value.toLowerCase().trim();
+      clearBtn.style.display = q ? 'flex' : 'none';
+
+      let filtered = q
+        ? SEARCH_INDEX.filter(item =>
+            (item.title + ' ' + item.desc + ' ' + item.tags).toLowerCase().includes(q))
+        : [...SEARCH_INDEX];
+
+      if (activeType !== 'all') {
+        filtered = filtered.filter(i => i.type === activeType);
+      }
+
+      updateCounts(q);
+      renderResults(filtered, q);
+    }
+
+    // Filter buttons
+    filters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filters.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeType = btn.dataset.type;
+        doSearch();
+      });
+    });
+
+    // Clear button
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      input.focus();
+      doSearch();
+    });
+
+    input.addEventListener('input', doSearch);
+
+    // Initial render
+    doSearch();
+  </script>
+
+  <div class="side-drawer" id="sideDrawer">
+    <div class="sd-header">
+      <span class="sd-logo">blender<span style="color:var(--accent)">.blend</span></span>
+      <button class="sd-close" id="sdClose" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="sd-nav">
+      <a href="index.html" class="sd-link"><span class="sd-icon">🏠</span>Home</a>
+      <a href="shortcuts.html" class="sd-link"><span class="sd-icon">⌨️</span>Shortcuts</a>
+      <a href="modifiers.html" class="sd-link"><span class="sd-icon">🔧</span>Modifiers</a>
+      <a href="tutorials.html" class="sd-link"><span class="sd-icon">🎬</span>Tutorials</a>
+      <a href="glossary.html" class="sd-link"><span class="sd-icon">📖</span>Glossary</a>
+      <a href="errors.html" class="sd-link"><span class="sd-icon">⚠️</span>Errors</a>
+      <a href="search.html" class="sd-link active"><span class="sd-icon">🔍</span>Search</a>
+    </nav>
+    <div class="sd-footer"><span class="sd-footer-text">For Blender 4.x</span></div>
+  </div>
+
+  <!-- SIDE DRAWER -->
+  <div class="sd-overlay" id="sdOverlay"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <div class="sd-header">
+      <span class="sd-logo">blender<span style="color:var(--accent)">.blend</span></span>
+      <button class="sd-close" id="sdClose" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="sd-nav">
+      <a href="index.html" class="sd-link"><span class="sd-icon">🏠</span>Home</a>
+      <a href="shortcuts.html" class="sd-link"><span class="sd-icon">⌨️</span>Shortcuts</a>
+      <a href="modifiers.html" class="sd-link"><span class="sd-icon">🔧</span>Modifiers</a>
+      <a href="tutorials.html" class="sd-link"><span class="sd-icon">🎬</span>Tutorials</a>
+      <a href="glossary.html" class="sd-link"><span class="sd-icon">📖</span>Glossary</a>
+      <a href="errors.html" class="sd-link"><span class="sd-icon">⚠️</span>Errors</a>
+      <a href="search.html" class="sd-link active"><span class="sd-icon">🔍</span>Search</a>
+    </nav>
+    <div class="sd-footer"><span class="sd-footer-text">For Blender 4.x</span></div>
+  </div>
+</body>
+</html>
