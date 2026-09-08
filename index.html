@@ -44,7 +44,7 @@
       </button>
     </div>
 
-    <div class="mobile-menu" id="mobileMenu" style="display:none">
+    <div class="mobile-menu" style="display:none">
       <a href="#">Home</a>
       <a href="shortcuts.html">Shortcuts</a>
       <a href="#workspaces">Workspaces</a>
@@ -589,13 +589,6 @@
 
   <script>
     // Hamburger menu
-    const ham = document.getElementById('hamburger');
-    const menu = document.getElementById('mobileMenu');
-    ham.addEventListener('click', () => {
-      menu.classList.toggle('open');
-      ham.classList.toggle('open');
-    });
-
     // Side drawer
     const drawer  = document.getElementById('sideDrawer');
     const overlay = document.getElementById('sdOverlay');
@@ -621,6 +614,18 @@
       htmlEl.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
     });
+
+    // ── Hamburger / Side Drawer ──
+    const drawer  = document.getElementById('sideDrawer');
+    const overlay = document.getElementById('sdOverlay');
+    const sdClose = document.getElementById('sdClose');
+    function openDrawer()  { drawer.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow=''; }
+    if(ham)     ham.addEventListener('click', openDrawer);
+    if(sdClose) sdClose.addEventListener('click', closeDrawer);
+    if(overlay) overlay.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeDrawer(); });
+
 
     // Rotating tips
     const tips = [
@@ -759,6 +764,25 @@
     </div>
   </footer>
 
+
+  <div class="side-drawer" id="sideDrawer">
+    <div class="sd-header">
+      <span class="sd-logo">blender<span style="color:var(--accent)">.blend</span></span>
+      <button class="sd-close" id="sdClose" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="sd-nav">
+      <a href="index.html" class="sd-link active"><span class="sd-icon">🏠</span>Home</a>
+      <a href="shortcuts.html" class="sd-link"><span class="sd-icon">⌨️</span>Shortcuts</a>
+      <a href="modifiers.html" class="sd-link"><span class="sd-icon">🔧</span>Modifiers</a>
+      <a href="tutorials.html" class="sd-link"><span class="sd-icon">🎬</span>Tutorials</a>
+      <a href="glossary.html" class="sd-link"><span class="sd-icon">📖</span>Glossary</a>
+      <a href="errors.html" class="sd-link"><span class="sd-icon">⚠️</span>Errors</a>
+      <a href="search.html" class="sd-link"><span class="sd-icon">🔍</span>Search</a>
+    </nav>
+    <div class="sd-footer"><span class="sd-footer-text">For Blender 4.x</span></div>
+  </div>
 
   <!-- SIDE DRAWER -->
   <div class="sd-overlay" id="sdOverlay"></div>
