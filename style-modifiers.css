@@ -1,4 +1,4 @@
-body { background-color: var(--bg) !important; }
+ body { background-color: var(--bg) !important; }
 
 /* HERO */
 .mod-hero { padding: 60px 24px 0; background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border); }
