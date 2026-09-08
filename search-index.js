@@ -1,4 +1,4 @@
-const SEARCH_INDEX = [
+ const SEARCH_INDEX = [
   {
     "type": "Shortcut",
     "title": "Rotate View",
