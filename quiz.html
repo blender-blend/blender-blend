@@ -1,0 +1,628 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Test your Blender knowledge with the BlendBridge interactive quiz.">
+  <title>Blender Quiz — BlendBridge</title>
+
+  <link rel="stylesheet" href="style-landing.css">
+
+  <style>
+    .quiz-hero {
+      padding: 65px 24px 35px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at top, var(--accent-dim), transparent 65%);
+    }
+
+    .quiz-hero-inner,
+    .quiz-container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .quiz-eyebrow {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .quiz-title {
+      margin: 12px 0;
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+    }
+
+    .quiz-description {
+      max-width: 550px;
+      margin: 0 auto;
+      color: var(--text-muted);
+    }
+
+    .quiz-container {
+      padding: 20px 20px 75px;
+    }
+
+    .quiz-card {
+      padding: clamp(20px, 5vw, 36px);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+    }
+
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .quiz-progress {
+      height: 6px;
+      background: var(--bg-surface);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      width: 0;
+      background: var(--accent);
+      transition: width 0.25s ease;
+    }
+
+    .question-text {
+      font-size: clamp(20px, 3vw, 25px);
+      line-height: 1.45;
+      margin-bottom: 24px;
+    }
+
+    .answer-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .answer-option {
+      width: 100%;
+      padding: 15px 17px;
+      border: 1px solid var(--border-hi);
+      border-radius: 10px;
+      background: var(--bg-surface);
+      color: var(--text);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .answer-option:hover:not(:disabled) {
+      border-color: var(--accent);
+    }
+
+    .answer-option:focus-visible,
+    .quiz-button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .answer-option:disabled {
+      cursor: default;
+    }
+
+    .answer-option.correct {
+      border-color: #36b37e;
+      background: rgba(54, 179, 126, 0.12);
+    }
+
+    .answer-option.incorrect {
+      border-color: #e05252;
+      background: rgba(224, 82, 82, 0.10);
+    }
+
+    .answer-option:disabled:not(.correct):not(.incorrect) {
+      opacity: 0.7;
+    }
+
+    .answer-feedback {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: var(--bg-surface);
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .answer-feedback[hidden] {
+      display: none;
+    }
+
+    .quiz-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .quiz-button {
+      padding: 11px 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border-hi);
+      background: var(--bg-surface);
+      color: var(--text);
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .quiz-button.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .quiz-button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .quiz-result {
+      text-align: center;
+      padding: 20px 0 8px;
+    }
+
+    .result-score {
+      color: var(--accent);
+      font-size: 54px;
+      font-weight: 700;
+      margin: 15px 0;
+    }
+
+    .result-message {
+      color: var(--text-muted);
+      margin: 0 auto 25px;
+      max-width: 430px;
+    }
+
+    .quiz-footer-note {
+      margin-top: 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 520px) {
+      .quiz-hero {
+        padding-top: 45px;
+      }
+
+      .quiz-container {
+        padding: 15px 14px 50px;
+      }
+
+      .quiz-actions {
+        flex-direction: column;
+      }
+
+      .quiz-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html" aria-label="BlendBridge home">
+        <div class="logo-icon">
+          <div class="logo-ring"></div>
+          <div class="logo-dot"></div>
+        </div>
+        <span class="logo-text">blender<span class="logo-accent">.blend</span></span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shortcuts.html" class="nav-link">Shortcuts</a></li>
+        <li><a href="modifiers.html" class="nav-link">Modifiers</a></li>
+        <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
+        <li><a href="quiz.html" class="nav-link active">Quiz</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <span class="version-badge">Blender 4.x</span>
+        <button class="dark-mode-toggle" id="darkToggle"
+          aria-label="Toggle dark mode" title="Toggle dark/light mode">
+          <svg class="icon-moon" width="16" height="16"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" width="16" height="16"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+          </svg>
+        </button>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Open menu"
+        aria-controls="sideDrawer" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="quiz-hero">
+    <div class="quiz-hero-inner">
+      <span class="quiz-eyebrow">Learn · Practise · Improve</span>
+      <h1 class="quiz-title">Test Your Blender Knowledge</h1>
+      <p class="quiz-description">
+        Check what you've learned about Blender tools, shortcuts,
+        modelling and 3D basics. Learn from every answer.
+      </p>
+    </div>
+  </section>
+
+  <main class="quiz-container">
+    <section class="quiz-card" aria-label="Blender knowledge quiz">
+      <div id="quizContent">
+        <div class="quiz-meta">
+          <span id="questionCounter">Question 1 of 10</span>
+          <span id="scoreCounter">Score: 0</span>
+        </div>
+
+        <div
+          class="quiz-progress"
+          role="progressbar"
+          aria-label="Quiz progress"
+          aria-valuemin="0"
+          aria-valuemax="10"
+          aria-valuenow="0"
+          id="progressBar">
+          <div class="quiz-progress-fill" id="progressFill"></div>
+        </div>
+
+        <h2 class="question-text" id="questionText"></h2>
+        <div class="answer-list" id="answerList"></div>
+
+        <div
+          class="answer-feedback"
+          id="answerFeedback"
+          role="status"
+          aria-live="polite"
+          hidden>
+        </div>
+
+        <div class="quiz-actions">
+          <button class="quiz-button primary" id="nextButton" disabled>
+            Check an answer first
+          </button>
+        </div>
+      </div>
+
+      <div class="quiz-result" id="quizResult" hidden>
+        <span class="quiz-eyebrow">Quiz completed</span>
+        <h2>Your Result</h2>
+        <div class="result-score" id="finalScore">0/10</div>
+        <p class="result-message" id="resultMessage"></p>
+        <button class="quiz-button primary" id="restartButton">
+          Try Again
+        </button>
+      </div>
+    </section>
+
+    <p class="quiz-footer-note">
+      Beginner-friendly practice · 10 questions · One point per correct answer
+    </p>
+  </main>
+
+  <div class="sd-overlay" id="sdOverlay"></div>
+
+  <aside class="side-drawer" id="sideDrawer" aria-label="Main menu">
+    <div class="sd-header">
+      <span class="sd-logo">blender<span style="color:var(--accent)">.blend</span></span>
+      <button class="sd-close" id="sdClose" aria-label="Close menu">
+        ✕
+      </button>
+    </div>
+
+    <nav class="sd-nav">
+      <a href="index.html" class="sd-link"><span class="sd-icon">🏠</span>Home</a>
+      <a href="shortcuts.html" class="sd-link"><span class="sd-icon">⌨️</span>Shortcuts</a>
+      <a href="modifiers.html" class="sd-link"><span class="sd-icon">🔧</span>Modifiers</a>
+      <a href="tutorials.html" class="sd-link"><span class="sd-icon">🎬</span>Tutorials</a>
+      <a href="glossary.html" class="sd-link"><span class="sd-icon">📖</span>Glossary</a>
+      <a href="errors.html" class="sd-link"><span class="sd-icon">⚠️</span>Errors</a>
+      <a href="search.html" class="sd-link"><span class="sd-icon">🔍</span>Search</a>
+      <a href="quiz.html" class="sd-link active"><span class="sd-icon">🧠</span>Quiz</a>
+    </nav>
+
+    <div class="sd-footer">
+      <span class="sd-footer-text">For Blender 4.x</span>
+    </div>
+  </aside>
+
+  <script>
+    // Theme: match the preference used by the existing website.
+    const htmlEl = document.documentElement;
+    const darkToggle = document.getElementById('darkToggle');
+
+    try {
+      htmlEl.setAttribute(
+        'data-theme',
+        localStorage.getItem('theme') || 'dark'
+      );
+    } catch (error) {
+      htmlEl.setAttribute('data-theme', 'dark');
+    }
+
+    darkToggle.addEventListener('click', () => {
+      const next =
+        htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+
+      htmlEl.setAttribute('data-theme', next);
+
+      try {
+        localStorage.setItem('theme', next);
+      } catch (error) {
+        // Theme still changes for this page view if storage is unavailable.
+      }
+    });
+
+    // Side drawer
+    const drawer = document.getElementById('sideDrawer');
+    const overlay = document.getElementById('sdOverlay');
+    const hamburger = document.getElementById('hamburger');
+    const closeButton = document.getElementById('sdClose');
+
+    function openDrawer() {
+      drawer.classList.add('open');
+      overlay.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      overlay.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', openDrawer);
+    closeButton.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeDrawer();
+    });
+
+    // Quiz questions
+    const questions = [
+      {
+        question: 'Which shortcut moves a selected object in Blender?',
+        options: ['R', 'G', 'S', 'E'],
+        answer: 1,
+        explanation: 'G stands for Grab/Move. R rotates, and S scales.'
+      },
+      {
+        question: 'Which shortcut switches between Object Mode and Edit Mode?',
+        options: ['Tab', 'Ctrl + S', 'F12', 'Shift + A'],
+        answer: 0,
+        explanation: 'Tab switches between Object Mode and Edit Mode.'
+      },
+      {
+        question: 'What does the S key do to a selected object?',
+        options: ['Save', 'Shade', 'Scale', 'Separate'],
+        answer: 2,
+        explanation: 'S activates scaling, allowing you to resize an object.'
+      },
+      {
+        question: 'Which shortcut rotates an object?',
+        options: ['G', 'R', 'X', 'M'],
+        answer: 1,
+        explanation: 'R starts a rotation operation.'
+      },
+      {
+        question: 'What is the purpose of a camera in a 3D scene?',
+        options: [
+          'To create materials',
+          'To add vertices',
+          'To define the view for rendering',
+          'To erase objects'
+        ],
+        answer: 2,
+        explanation: 'The active camera defines the view used to render a scene.'
+      },
+      {
+        question: 'What does the Mirror modifier do?',
+        options: [
+          'Adds sound',
+          'Creates a mirrored version of geometry',
+          'Changes the camera',
+          'Deletes all faces'
+        ],
+        answer: 1,
+        explanation: 'The Mirror modifier reflects geometry across selected axes.'
+      },
+      {
+        question: 'Which shortcut opens Blender’s search menu?',
+        options: ['F3', 'F1', 'Ctrl + Q', 'Alt + S'],
+        answer: 0,
+        explanation: 'F3 opens the operator search menu in Blender.'
+      },
+      {
+        question: 'Which object is commonly used as a starting point for 3D modelling?',
+        options: ['Audio clip', 'Cube', 'Text document', 'Spreadsheet'],
+        answer: 1,
+        explanation: 'A cube is a common starting mesh for practising modelling.'
+      },
+      {
+        question: 'What does pressing X or Delete usually do when an object is selected?',
+        options: [
+          'Duplicates the object',
+          'Deletes the selected object',
+          'Changes the view',
+          'Starts rendering'
+        ],
+        answer: 1,
+        explanation: 'X or Delete opens the delete action for selected elements.'
+      },
+      {
+        question: 'What is a material mainly used for?',
+        options: [
+          'Changing an object’s visual surface properties',
+          'Moving the camera',
+          'Saving a project',
+          'Changing keyboard shortcuts'
+        ],
+        answer: 0,
+        explanation: 'Materials define surface appearance, such as colour and roughness.'
+      }
+    ];
+
+    const questionCounter = document.getElementById('questionCounter');
+    const scoreCounter = document.getElementById('scoreCounter');
+    const progressBar = document.getElementById('progressBar');
+    const progressFill = document.getElementById('progressFill');
+    const questionText = document.getElementById('questionText');
+    const answerList = document.getElementById('answerList');
+    const answerFeedback = document.getElementById('answerFeedback');
+    const nextButton = document.getElementById('nextButton');
+    const quizContent = document.getElementById('quizContent');
+    const quizResult = document.getElementById('quizResult');
+    const finalScore = document.getElementById('finalScore');
+    const resultMessage = document.getElementById('resultMessage');
+    const restartButton = document.getElementById('restartButton');
+
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+
+    function renderQuestion() {
+      const item = questions[currentQuestion];
+      answered = false;
+
+      questionCounter.textContent =
+        `Question ${currentQuestion + 1} of ${questions.length}`;
+      scoreCounter.textContent = `Score: ${score}`;
+
+      progressBar.setAttribute('aria-valuenow', currentQuestion);
+      progressFill.style.width =
+        `${(currentQuestion / questions.length) * 100}%`;
+
+      questionText.textContent = item.question;
+      answerList.replaceChildren();
+      answerFeedback.hidden = true;
+      answerFeedback.textContent = '';
+
+      item.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'answer-option';
+        button.textContent =
+          `${String.fromCharCode(65 + index)}. ${option}`;
+
+        button.addEventListener('click', () => selectAnswer(index));
+        answerList.appendChild(button);
+      });
+
+      nextButton.disabled = true;
+      nextButton.textContent =
+        currentQuestion === questions.length - 1
+          ? 'See My Result'
+          : 'Next Question';
+    }
+
+    function selectAnswer(selectedIndex) {
+      if (answered) return;
+
+      answered = true;
+      const item = questions[currentQuestion];
+      const buttons = answerList.querySelectorAll('.answer-option');
+      const isCorrect = selectedIndex === item.answer;
+
+      if (isCorrect) score++;
+
+      buttons.forEach((button, index) => {
+        button.disabled = true;
+
+        if (index === item.answer) {
+          button.classList.add('correct');
+        } else if (index === selectedIndex && !isCorrect) {
+          button.classList.add('incorrect');
+        }
+      });
+
+      answerFeedback.hidden = false;
+      answerFeedback.textContent =
+        `${isCorrect ? 'Correct!' : 'Not quite.'} ${item.explanation}`;
+
+      scoreCounter.textContent = `Score: ${score}`;
+      nextButton.disabled = false;
+      nextButton.focus();
+    }
+
+    function showResult() {
+      quizContent.hidden = true;
+      quizResult.hidden = false;
+
+      progressBar.setAttribute('aria-valuenow', questions.length);
+      finalScore.textContent = `${score}/${questions.length}`;
+      progressFill.style.width = '100%';
+
+      if (score === questions.length) {
+        resultMessage.textContent =
+          'Excellent! You answered every question correctly.';
+      } else if (score >= 7) {
+        resultMessage.textContent =
+          'Great work! Review the explanations and keep practising.';
+      } else if (score >= 4) {
+        resultMessage.textContent =
+          'Good start! Revisit the shortcuts and basic concepts, then try again.';
+      } else {
+        resultMessage.textContent =
+          'Every expert starts somewhere. Review the basics and give it another try.';
+      }
+    }
+
+    nextButton.addEventListener('click', () => {
+      if (!answered) return;
+
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    });
+
+    restartButton.addEventListener('click', () => {
+      currentQuestion = 0;
+      score = 0;
+      quizResult.hidden = true;
+      quizContent.hidden = false;
+      renderQuestion();
+    });
+
+    renderQuestion();
+  </script>
+</body>
+</html>
