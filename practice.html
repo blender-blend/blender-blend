@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice, Quiz &amp; Roadmap — BlendBridge</title>
+  <link rel="stylesheet" href="style-landing.css">
+  <link rel="manifest" href="manifest.json">
+  <style>
+    /* ── PRACTICE HUB: ROADMAP, QUIZ & MINI PROJECTS ── */
+    .prac-hero {
+      padding: 4.5rem 1.5rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .prac-hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .prac-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1.75rem;
+    }
+    .prac-tab {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1.15rem;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .prac-tab:hover {
+      border-color: #ff7a00;
+      color: #ff7a00;
+    }
+    .prac-body {
+      padding: 3rem 1.5rem 5rem;
+      background: var(--bg);
+    }
+    .prac-body-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+    .prac-sec-header {
+      margin-bottom: 1.5rem;
+    }
+    .prac-sec-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0.25rem 0 0.4rem;
+    }
+    .prac-sec-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* ── 1. LEARNING ROADMAP CHECKLIST ── */
+    .rm-progress-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.35rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .rm-progress-left {
+      flex: 1;
+      min-width: 240px;
+    }
+    .rm-progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.55rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .rm-progress-pct {
+      color: #ff7a00;
+    }
+    .rm-bar-bg {
+      height: 10px;
+      background: var(--bg-surface, rgba(255,255,255,0.06));
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .rm-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff7a00, #ffa94d);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+    .rm-reset-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .rm-reset-btn:hover {
+      border-color: #ff7a00;
+      color: var(--text);
+    }
+    .rm-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    .rm-stage {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.4rem;
+    }
+    .rm-stage-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #ff7a00;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+    .rm-stage-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 1rem;
+    }
+    .rm-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.55rem 0;
+      border-top: 1px solid var(--border);
+      cursor: pointer;
+      font-size: 0.88rem;
+      color: var(--text);
+      user-select: none;
+    }
+    .rm-item input[type="checkbox"] {
+      accent-color: #ff7a00;
+      width: 17px;
+      height: 17px;
+      margin-top: 0.15rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .rm-item.done span {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    /* ── 2. INTERACTIVE QUIZ ── */
+    .quiz-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .quiz-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .quiz-counter {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #ff7a00;
+    }
+    .quiz-best {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg-surface, rgba(255,255,255,0.04));
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+    }
+    .quiz-question {
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 1.25rem;
+      line-height: 1.4;
+    }
+    .quiz-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+    .quiz-opt {
+      background: var(--bg-surface, rgba(255,255,255,0.03));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.95rem 1.1rem;
+      text-align: left;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .quiz-opt:hover:not(:disabled) {
+      border-color: #ff7a00;
+    }
+    .quiz-opt.correct {
+      background: rgba(29, 158, 117, 0.16);
+      border-color: #2ec492;
+      color: #2ec492;
+    }
+    .quiz-opt.wrong {
+      background: rgba(239, 68, 68, 0.16);
+      border-color: #ef4444;
+      color: #ef4444;
+    }
+    .quiz-feedback {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      padding: 0.9rem 1.1rem;
+      border-radius: 10px;
+      background: var(--bg-surface, rgba(255,255,255,0.04));
+      border: 1px solid var(--border);
+      color: var(--text);
+      margin-bottom: 1.25rem;
+      display: none;
+    }
+    .quiz-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .quiz-next-btn {
+      background: #ff7a00;
+      color: #ffffff;
+      border: none;
+      padding: 0.65rem 1.35rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* ── 3. MINI PROJECTS & CHALLENGES ── */
+    .chal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    .chal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .chal-badges {
+      display: flex;
+      gap: 0.45rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .chal-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(255, 122, 0, 0.14);
+      color: #ff7a00;
+      border: 1px solid rgba(255, 122, 0, 0.3);
+    }
+    .chal-badge-time {
+      background: rgba(74, 158, 255, 0.14);
+      color: #4a9eff;
+      border: 1px solid rgba(74, 158, 255, 0.3);
+    }
+    .chal-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.45rem;
+    }
+    .chal-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 0 0 1rem;
+    }
+    .chal-steps {
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: var(--text);
+      padding-left: 1.15rem;
+      margin: 0 0 1rem;
+    }
+    .chal-steps li {
+      margin-bottom: 0.3rem;
+    }
+    .chal-tools {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 0.75rem;
+    }
+    @media (max-width: 820px) {
+      .rm-grid, .quiz-options, .chal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <div class="logo-icon"><div class="logo-ring"></div><div class="logo-dot"></div></div>
+        <span class="logo-text">Blend<span class="logo-accent">Bridge</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shortcuts.html" class="nav-link">Shortcuts</a></li>
+        <li><a href="modifiers.html" class="nav-link">Modifiers</a></li>
+        <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
+        <li><a href="glossary.html" class="nav-link">Glossary</a></li>
+        <li><a href="errors.html" class="nav-link">Errors</a></li>
+        <li><a href="practice.html" class="nav-link active">Practice &amp; Quiz</a></li>
+      </ul>
+      <div class="nav-right">
+        <span class="version-badge">Blender 4.x</span>
+        <button class="dark-mode-toggle" id="darkToggle" aria-label="Toggle dark mode">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="nav-cta" onclick="location.href='#quiz-sec'">Take Quiz</button>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="prac-hero">
+    <div class="prac-hero-inner">
+      <span class="section-eyebrow">Interactive Learning Hub</span>
+      <h1 class="section-title">Roadmap, Quiz &amp; Mini Projects</h1>
+      <p class="section-desc">Track your beginner learning milestones, test your shortcut knowledge with our interactive quiz, and build 4 guided mini projects.</p>
+
+      <div class="prac-tabs">
+        <a href="#roadmap-sec" class="prac-tab">🗺️ 1. Learning Roadmap</a>
+        <a href="#quiz-sec" class="prac-tab">🎯 2. Shortcut &amp; Concept Quiz</a>
+        <a href="#projects-sec" class="prac-tab">🛠️ 3. Mini Projects &amp; Challenges</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <section class="prac-body">
+    <div class="prac-body-inner">
+
+      <!-- ── SECTION 1: LEARNING ROADMAP ── -->
+      <div id="roadmap-sec">
+        <div class="prac-sec-header">
+          <span class="section-eyebrow">Track Your Progress</span>
+          <h2 class="prac-sec-title">1. Interactive Learning Roadmap</h2>
+          <p class="prac-sec-desc">Tick off each skill as you practice in Blender. Your progress is saved automatically in your browser (`localStorage`).</p>
+        </div>
+
+        <div class="rm-progress-card">
+          <div class="rm-progress-left">
+            <div class="rm-progress-top">
+              <span id="rmStatusText">0 of 12 milestones completed</span>
+              <span class="rm-progress-pct" id="rmPctText">0%</span>
+            </div>
+            <div class="rm-bar-bg">
+              <div class="rm-bar-fill" id="rmBarFill"></div>
+            </div>
+          </div>
+          <button class="rm-reset-btn" id="rmResetBtn">Reset Progress</button>
+        </div>
+
+        <div class="rm-grid">
+          <div class="rm-stage">
+            <span class="rm-stage-tag">Stage 01 · Day 1–2</span>
+            <h3 class="rm-stage-title">Setup &amp; Viewport Navigation</h3>
+            <label class="rm-item"><input type="checkbox" class="rm-check" data-id="m1"><span>Install Blender &amp; enable <strong>Emulate Numpad</strong> + <strong>Auto Save</strong></span></label>
+            <label class="rm-item"><input type="checkbox" class="rm-check" data-id="m2"><span>Orbit (<kbd>Middle Mouse</kbd>), Pan (<kbd>Shift+MMB</kbd>), and Zoom (<kbd>Scroll</kbd>)</span></label>
+            <label class="rm-item"><input type="checkbox" class="rm-check" data-id="m3"><span>Move (<kbd>G</kbd>), Rotate (<kbd>R</kbd>), and Scale (<kbd>S</kbd>) along X, Y, Z axes</span></label>
+          </div>
+
+          <div class="rm-stage">
+            <span class="rm-stage-tag">Stage 02 · Day 3–5</span>
+            <h3 class="rm-stage-title">Edit Mode &amp; Core Modeling</h3>
+            <label class="rm-item"><input type="checkbox" class="rm-check" data-id="m4"><span>Switch modes (<kbd>Tab</kbd>) and select Vertices (<kbd>1</kbd>), Edges (<kbd>2</kbd>), Faces (<kbd>3</kbd>)</span></label>
+            <label class="rm-item"><input type="checkbox" class="rm-check" data-id="m5"><span>Shape meshes using Extrude (<kbd>E</kbd>), Inset (<kbd>I</kbd>), and Loop Cut (<kbd>Ctrl+R</kbd>)</span></label>
+            <label class="rm-item"><input type="checkbox" class="rm-check" data-id="m6"><span>Round edges with Bevel (<kbd>Ctrl+B</kbd>) and fix flipped normals (<kbd>Shift+N</kbd>)</span></label>
+          </div>
+
+          <div class="rm-stage">
+            <span class="rm-stage-tag">Stage 03 · Week 2</span>
+            <h3 class="rm-stage-title">Modifiers &amp; Materials</h3>
+            <label class="rm-item"><input type="checkbox" class="rm-check" data-id="m7"><span>Apply Object Scale (<kbd>Ctrl+A</kbd>) before adding modifiers</span></label>
+            <label class="rm-item"><input type="checkbox" class="rm-check" data-id="m8"><span>Use <strong>Subdivision Surface</strong>, <strong>Mirror</strong>, and <strong>Solidify</strong> modifiers</span></label>
+            <label class="rm-item"><input type="checkbox" class="rm-check" data-id="m9"><span>Assign basic colors, roughness, and metallic shaders in Material Preview</span></label>
+          </div>
+
+          <div class="rm-stage">
+            <span class="rm-stage-tag">Stage 04 · Week 3</span>
+            <h3 class="rm-stage-title">Lighting, Camera &amp; First Render</h3>
+            <label class="rm-item"><input type="checkbox" class="rm-check" data-id="m10"><span>Add Area/Sun lights (<kbd>Shift+A</kbd>) and preview in Rendered Shading (<kbd>Z</kbd>)</span></label>
+            <label class="rm-item"><input type="checkbox" class="rm-check" data-id="m11"><span>Snap Camera to current view (<kbd>Ctrl+Alt+Numpad 0</kbd>)</span></label>
+            <label class="rm-item"><input type="checkbox" class="rm-check" data-id="m12"><span>Render your first final image (<kbd>F12</kbd>) and save it (<kbd>Alt+S</kbd>)</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SECTION 2: INTERACTIVE QUIZ ── -->
+      <div id="quiz-sec">
+        <div class="prac-sec-header">
+          <span class="section-eyebrow">Test Your Knowledge</span>
+          <h2 class="prac-sec-title">2. Blender Beginner Quiz</h2>
+          <p class="prac-sec-desc">8 quick questions covering essential shortcuts, modifiers, and troubleshooting fixes.</p>
+        </div>
+
+        <div class="quiz-box" id="quizBox">
+          <div class="quiz-top-bar">
+            <span class="quiz-counter" id="quizCounter">Question 1 of 8</span>
+            <span class="quiz-best" id="quizBest">Best Score: 0 / 8</span>
+          </div>
+
+          <h3 class="quiz-question" id="quizQuestion">Loading question...</h3>
+          <div class="quiz-options" id="quizOptions"></div>
+          <div class="quiz-feedback" id="quizFeedback"></div>
+
+          <div class="quiz-actions">
+            <button class="quiz-next-btn" id="quizNextBtn">Next Question →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SECTION 3: MINI PROJECTS & PRACTICE CHALLENGES ── -->
+      <div id="projects-sec">
+        <div class="prac-sec-header">
+          <span class="section-eyebrow">Hands-On Practice</span>
+          <h2 class="prac-sec-title">3. Mini Projects &amp; Practice Challenges</h2>
+          <p class="prac-sec-desc">Short, focused 15–30 minute exercises to practice shortcuts and modifiers without following a long video.</p>
+        </div>
+
+        <div class="chal-grid">
+          <div class="chal-card">
+            <div>
+              <div class="chal-badges">
+                <span class="chal-badge">Challenge 01 · Beginner</span>
+                <span class="chal-badge chal-badge-time">⏱ 15 mins</span>
+              </div>
+              <h3 class="chal-title">Low-Poly Coffee Mug</h3>
+              <p class="chal-desc">Create a clean 3D coffee cup from a single cylinder using Edit Mode extrusions and modifiers.</p>
+              <ol class="chal-steps">
+                <li>Press <kbd>Shift+A</kbd> → Mesh → Cylinder and delete the top face in Edit Mode (<kbd>3</kbd> then <kbd>X</kbd>).</li>
+                <li>Add a <strong>Solidify</strong> modifier (tick <em>Even Thickness</em>) to give the cup walls.</li>
+                <li>Add a Loop Cut (<kbd>Ctrl+R</kbd>) on the side and extrude (<kbd>E</kbd>) two faces out and bridge them to form the handle.</li>
+                <li>Add a <strong>Subdivision Surface</strong> modifier (<kbd>Ctrl+2</kbd>) and Shade Auto Smooth.</li>
+              </ol>
+            </div>
+            <div class="chal-tools">
+              <strong>Key Tools Practiced:</strong> <kbd>Shift+A</kbd>, <kbd>Tab</kbd>, <kbd>E</kbd>, <kbd>Ctrl+R</kbd>, Solidify, Subdivision Surface
+            </div>
+          </div>
+
+          <div class="chal-card">
+            <div>
+              <div class="chal-badges">
+                <span class="chal-badge">Challenge 02 · Beginner</span>
+                <span class="chal-badge chal-badge-time">⏱ 20 mins</span>
+              </div>
+              <h3 class="chal-title">Sci-Fi Storage Crate</h3>
+              <p class="chal-desc">Practice hard-surface modeling on the default cube using Inset, Extrude, and the Bevel modifier.</p>
+              <ol class="chal-steps">
+                <li>Select the default Cube, enter Edit Mode (<kbd>Tab</kbd>), and press <kbd>A</kbd> to select all 6 faces.</li>
+                <li>Press <kbd>I</kbd> twice (Inset Individual Faces) to create a frame on each side of the cube.</li>
+                <li>Press <kbd>Alt+E</kbd> → <em>Extrude Faces Along Normals</em> and push the inner panels slightly inward.</li>
+                <li>Return to Object Mode, apply Scale (<kbd>Ctrl+A</kbd>), and add a <strong>Bevel</strong> modifier (3 segments).</li>
+              </ol>
+            </div>
+            <div class="chal-tools">
+              <strong>Key Tools Practiced:</strong> <kbd>I</kbd> (Individual Inset), <kbd>Alt+E</kbd>, <kbd>Ctrl+A</kbd>, Bevel Modifier
+            </div>
+          </div>
+
+          <div class="chal-card">
+            <div>
+              <div class="chal-badges">
+                <span class="chal-badge">Challenge 03 · Intermediate</span>
+                <span class="chal-badge chal-badge-time">⏱ 25 mins</span>
+              </div>
+              <h3 class="chal-title">Symmetrical Robot Head</h3>
+              <p class="chal-desc">Model half of a stylized robot character and let the Mirror and Boolean modifiers do the rest.</p>
+              <ol class="chal-steps">
+                <li>Add a Cube, cut it down the center (<kbd>Ctrl+R</kbd>), delete the left half, and add a <strong>Mirror</strong> modifier (enable <em>Clipping</em>).</li>
+                <li>Extrude (<kbd>E</kbd>) and scale (<kbd>S</kbd>) to shape the helmet visor and ear panels.</li>
+                <li>Add a small Cylinder, position it over the eye area, and use a <strong>Boolean (Difference)</strong> modifier to carve out eye sockets.</li>
+              </ol>
+            </div>
+            <div class="chal-tools">
+              <strong>Key Tools Practiced:</strong> Mirror (with Clipping), Boolean (Difference), <kbd>H</kbd> to hide cutter
+            </div>
+          </div>
+
+          <div class="chal-card">
+            <div>
+              <div class="chal-badges">
+                <span class="chal-badge">Challenge 04 · Intermediate</span>
+                <span class="chal-badge chal-badge-time">⏱ 20 mins</span>
+              </div>
+              <h3 class="chal-title">Glowing Crystal Pillar</h3>
+              <p class="chal-desc">Combine mesh editing, the Array modifier, and an Emission shader for a glowing render.</p>
+              <ol class="chal-steps">
+                <li>Add a Cylinder (6 vertices), grab the top face in Edit Mode, scale it to a point (<kbd>S</kbd>), and bevel the edges (<kbd>Ctrl+B</kbd>).</li>
+                <li>Use <kbd>Shift+D</kbd> to duplicate and rotate smaller crystals around the base.</li>
+                <li>In the Shader Editor, assign a <strong>Principled BSDF</strong> with high <em>Transmission</em> and subtle blue/orange <em>Emission</em>, then press <kbd>F12</kbd>.</li>
+              </ol>
+            </div>
+            <div class="chal-tools">
+              <strong>Key Tools Practiced:</strong> <kbd>Shift+D</kbd>, <kbd>Ctrl+B</kbd>, Shader Editor, Camera View (<kbd>Numpad 0</kbd>), <kbd>F12</kbd>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html">
+            <div class="logo-icon"><div class="logo-ring"></div><div class="logo-dot"></div></div>
+            <span class="logo-text">Blend<span class="logo-accent">Bridge</span></span>
+          </a>
+          <p class="footer-tagline">A beginner-friendly guide to Blender — built by learners, for learners.</p>
+          <span class="footer-version">For Blender 4.x</span>
+        </div>
+        <div class="footer-links-group">
+          <div class="footer-col">
+            <h4 class="footer-col-title">Learn</h4>
+            <ul>
+              <li><a href="index.html#download">Download &amp; Setup</a></li>
+              <li><a href="index.html#start">Getting Started</a></li>
+              <li><a href="practice.html#roadmap-sec">Learning Roadmap</a></li>
+              <li><a href="practice.html#quiz-sec">Shortcut Quiz</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-title">Reference</h4>
+            <ul>
+              <li><a href="shortcuts.html">All Shortcuts</a></li>
+              <li><a href="modifiers.html">Modifiers</a></li>
+              <li><a href="tutorials.html">Tutorials</a></li>
+              <li><a href="glossary.html">Glossary</a></li>
+              <li><a href="errors.html">Common Errors</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-title">Official</h4>
+            <ul>
+              <li><a href="https://www.blender.org" target="_blank" rel="noopener">Blender.org ↗</a></li>
+              <li><a href="https://docs.blender.org" target="_blank" rel="noopener">Official Docs ↗</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">Not affiliated with the Blender Foundation. Made for educational purposes.</p>
+        <div class="footer-bottom-links"><a href="#">Back to top ↑</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SIDE DRAWER -->
+  <div class="sd-overlay" id="sdOverlay"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <div class="sd-header">
+      <span class="sd-logo">Blend<span style="color:var(--accent)">Bridge</span></span>
+      <button class="sd-close" id="sdClose" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="sd-nav">
+      <a href="index.html" class="sd-link"><span class="sd-icon">🏠</span>Home</a>
+      <a href="shortcuts.html" class="sd-link"><span class="sd-icon">⌨️</span>Shortcuts</a>
+      <a href="modifiers.html" class="sd-link"><span class="sd-icon">🔧</span>Modifiers</a>
+      <a href="tutorials.html" class="sd-link"><span class="sd-icon">🎬</span>Tutorials</a>
+      <a href="glossary.html" class="sd-link"><span class="sd-icon">📖</span>Glossary</a>
+      <a href="errors.html" class="sd-link"><span class="sd-icon">⚠️</span>Errors</a>
+      <a href="practice.html" class="sd-link active"><span class="sd-icon">🎯</span>Practice &amp; Quiz</a>
+    </nav>
+    <div class="sd-footer"><span class="sd-footer-text">For Blender 4.x</span></div>
+  </div>
+
+  <script>
+    // ── Dark / Light Mode Toggle (with localStorage sync) ──
+    const darkToggle = document.getElementById('darkToggle');
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    if (darkToggle) {
+      darkToggle.addEventListener('click', () => {
+        const next = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    }
+
+    // ── Hamburger / Side Drawer ──
+    const ham     = document.getElementById('hamburger');
+    const drawer  = document.getElementById('sideDrawer');
+    const overlay = document.getElementById('sdOverlay');
+    const sdClose = document.getElementById('sdClose');
+    function openDrawer() {
+      if (drawer) drawer.classList.add('open');
+      if (overlay) overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      if (drawer) drawer.classList.remove('open');
+      if (overlay) overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    if (ham)     ham.addEventListener('click', openDrawer);
+    if (sdClose) sdClose.addEventListener('click', closeDrawer);
+    if (overlay) overlay.addEventListener('click', closeDrawer);
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach(link => link.addEventListener('click', closeDrawer));
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+    // ── 1. LEARNING ROADMAP CHECKLIST (Saved in localStorage) ──
+    const rmChecks = document.querySelectorAll('.rm-check');
+    const rmStatusText = document.getElementById('rmStatusText');
+    const rmPctText = document.getElementById('rmPctText');
+    const rmBarFill = document.getElementById('rmBarFill');
+    const rmResetBtn = document.getElementById('rmResetBtn');
+
+    function loadRoadmap() {
+      const saved = JSON.parse(localStorage.getItem('blendbridge_roadmap') || '{}');
+      let doneCount = 0;
+      rmChecks.forEach(chk => {
+        const id = chk.dataset.id;
+        chk.checked = !!saved[id];
+        chk.closest('.rm-item').classList.toggle('done', chk.checked);
+        if (chk.checked) doneCount++;
+      });
+      const total = rmChecks.length;
+      const pct = Math.round((doneCount / total) * 100);
+      if (rmStatusText) rmStatusText.textContent = `${doneCount} of ${total} milestones completed`;
+      if (rmPctText) rmPctText.textContent = `${pct}%`;
+      if (rmBarFill) rmBarFill.style.width = `${pct}%`;
+    }
+
+    rmChecks.forEach(chk => {
+      chk.addEventListener('change', () => {
+        const saved = JSON.parse(localStorage.getItem('blendbridge_roadmap') || '{}');
+        saved[chk.dataset.id] = chk.checked;
+        localStorage.setItem('blendbridge_roadmap', JSON.stringify(saved));
+        loadRoadmap();
+      });
+    });
+
+    if (rmResetBtn) {
+      rmResetBtn.addEventListener('click', () => {
+        localStorage.removeItem('blendbridge_roadmap');
+        loadRoadmap();
+      });
+    }
+    loadRoadmap();
+
+    // ── 2. INTERACTIVE BLENDER QUIZ (Best Score saved in localStorage) ──
+    const quizData = [
+      {
+        q: "Which shortcut switches between Object Mode and Edit Mode?",
+        opts: ["Tab", "Ctrl + M", "Spacebar", "Shift + A"],
+        ans: 0,
+        exp: "Pressing Tab toggles directly between Object Mode (whole objects) and Edit Mode (vertices, edges, faces)."
+      },
+      {
+        q: "You scaled a cube in Object Mode and now your Bevel modifier looks stretched. How do you fix it?",
+        opts: ["Press Alt + G", "Press Ctrl + A and choose Scale", "Press Shift + N", "Press F12"],
+        ans: 1,
+        exp: "Ctrl + A -> Scale resets the object's scale to 1.0 so modifiers like Bevel and Solidify apply evenly."
+      },
+      {
+        q: "Some faces on your mesh look dark or inside-out. Which shortcut recalculates normals in Edit Mode?",
+        opts: ["Ctrl + R", "Shift + D", "Shift + N", "Alt + H"],
+        ans: 2,
+        exp: "Selecting all faces (A) in Edit Mode and pressing Shift + N recalculates normals to point outward."
+      },
+      {
+        q: "In Blender 4.1+, what replaced the old 'Auto Smooth' checkbox?",
+        opts: ["Subdivision Surface", "Smooth by Angle modifier", "Mirror modifier", "Knife Tool"],
+        ans: 1,
+        exp: "Blender 4.1+ uses the 'Smooth by Angle' modifier (or right-click -> Shade Auto Smooth) for non-destructive normal smoothing."
+      },
+      {
+        q: "What do the keys 1, 2, and 3 at the top of the keyboard do inside Edit Mode?",
+        opts: ["Change camera views", "Switch Vertex, Edge, and Face select modes", "Add Subdivision levels", "Hide objects"],
+        ans: 1,
+        exp: "In Edit Mode, 1 selects Vertices, 2 selects Edges, and 3 selects Faces (while Numpad 1/3/7 controls camera angles)."
+      },
+      {
+        q: "You accidentally pressed H and your object vanished from the viewport. How do you unhide it?",
+        opts: ["Alt + H", "Ctrl + J", "Shift + A", "Numpad 0"],
+        ans: 0,
+        exp: "Pressing Alt + H unhides all hidden objects in the current mode."
+      },
+      {
+        q: "Which modifier adds real 3D wall thickness to a flat plane or thin cup mesh?",
+        opts: ["Array", "Boolean", "Solidify", "Shrinkwrap"],
+        ans: 2,
+        exp: "The Solidify modifier extrudes thin surfaces into solid walls with adjustable thickness."
+      },
+      {
+        q: "Forgot where a command lives in Blender's menus? Which key opens the global command search?",
+        opts: ["F1", "F3", "F12", "N"],
+        ans: 1,
+        exp: "Pressing F3 anywhere in Blender opens the global search box so you can run any tool by name."
+      }
+    ];
+
+    let qIdx = 0;
+    let score = 0;
+    const qCounter = document.getElementById('quizCounter');
+    const qBest    = document.getElementById('quizBest');
+    const qTitle   = document.getElementById('quizQuestion');
+    const qOpts    = document.getElementById('quizOptions');
+    const qFeed    = document.getElementById('quizFeedback');
+    const qNext    = document.getElementById('quizNextBtn');
+
+    function updateBestBadge() {
+      const best = parseInt(localStorage.getItem('blendbridge_quiz_best') || '0', 10);
+      if (qBest) qBest.textContent = `Best Score: ${best} / ${quizData.length}`;
+    }
+
+    function renderQuestion() {
+      updateBestBadge();
+      if (qIdx >= quizData.length) {
+        const best = parseInt(localStorage.getItem('blendbridge_quiz_best') || '0', 10);
+        if (score > best) localStorage.setItem('blendbridge_quiz_best', String(score));
+        updateBestBadge();
+        qCounter.textContent = "Quiz Completed!";
+        qTitle.textContent = `You scored ${score} out of ${quizData.length}! 🎉`;
+        qOpts.innerHTML = '';
+        qFeed.style.display = 'block';
+        qFeed.textContent = score >= 6
+          ? "Great job! You've mastered the core Blender shortcuts and modifier rules."
+          : "Nice effort! Review the Shortcuts and Modifiers pages, then try again to beat your score.";
+        qNext.style.display = 'inline-block';
+        qNext.textContent = "Restart Quiz ↻";
+        return;
+      }
+
+      const item = quizData[qIdx];
+      qCounter.textContent = `Question ${qIdx + 1} of ${quizData.length}`;
+      qTitle.textContent = item.q;
+      qOpts.innerHTML = '';
+      qFeed.style.display = 'none';
+      qNext.style.display = 'none';
+      qNext.textContent = qIdx === quizData.length - 1 ? "See Final Score →" : "Next Question →";
+
+      item.opts.forEach((optText, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-opt';
+        btn.textContent = optText;
+        btn.addEventListener('click', () => selectAnswer(i, btn));
+        qOpts.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(choice, clickedBtn) {
+      const item = quizData[qIdx];
+      const allBtns = qOpts.querySelectorAll('.quiz-opt');
+      allBtns.forEach(b => (b.disabled = true));
+
+      if (choice === item.ans) {
+        score++;
+        clickedBtn.classList.add('correct');
+        qFeed.innerHTML = `<strong style="color:#2ec492">✓ Correct!</strong> ${item.exp}`;
+      } else {
+        clickedBtn.classList.add('wrong');
+        allBtns[item.ans].classList.add('correct');
+        qFeed.innerHTML = `<strong style="color:#ef4444">✗ Not quite.</strong> ${item.exp}`;
+      }
+      qFeed.style.display = 'block';
+      qNext.style.display = 'inline-block';
+    }
+
+    if (qNext) {
+      qNext.addEventListener('click', () => {
+        if (qIdx >= quizData.length) {
+          qIdx = 0;
+          score = 0;
+        } else {
+          qIdx++;
+        }
+        renderQuestion();
+      });
+    }
+    renderQuestion();
+
+    // ── PWA Offline Service Worker Registration ──
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
