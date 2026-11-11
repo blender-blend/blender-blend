@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modifiers — BlendBridge</title>
   <link rel="stylesheet" href="style-landing.css">
+  <link rel="manifest" href="manifest.json">
   <style>
     /* ── MODIFIERS PAGE STYLES (Matches BlendBridge Dark/Light Theme) ── */
     .mod-hero {
@@ -229,7 +230,6 @@
       }
     }
   </style>
-  <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
@@ -269,19 +269,19 @@
     <div class="mod-hero-inner">
       <span class="section-eyebrow">Non-Destructive Modeling</span>
       <h1 class="section-title">Blender Modifiers</h1>
-      <p class="section-desc">Modifiers let you smooth, mirror, thicken, and duplicate 3D objects automatically — without permanently changing your base mesh.</p>
+      <p class="section-desc">Modifiers let you smooth, mirror, thicken, deform, and duplicate 3D objects automatically — without permanently changing your base mesh.</p>
 
       <div class="mod-search-wrap">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" id="modSearch" placeholder="Search modifiers... (e.g. mirror, subdivision, bevel, boolean, smooth)" autocomplete="off" />
+        <input type="text" id="modSearch" placeholder="Search 15 modifiers... (e.g. mirror, displace, lattice, armature, wave)" autocomplete="off" />
         <span id="modCount" class="mod-count"></span>
       </div>
 
       <div class="mod-filters">
-        <button class="mcat-btn active" data-cat="all">All Modifiers</button>
-        <button class="mcat-btn" data-cat="generate">Generate</button>
-        <button class="mcat-btn" data-cat="deform">Deform</button>
-        <button class="mcat-btn" data-cat="normals">Normals &amp; 4.0+</button>
+        <button class="mcat-btn active" data-cat="all">All Modifiers (15)</button>
+        <button class="mcat-btn" data-cat="generate">Generate (6)</button>
+        <button class="mcat-btn" data-cat="deform">Deform (7)</button>
+        <button class="mcat-btn" data-cat="normals">Normals &amp; 4.0+ (2)</button>
       </div>
     </div>
   </section>
@@ -300,12 +300,12 @@
         <div class="mod-rule-card">
           <div class="mod-rule-num">Golden Rule 02</div>
           <h3 class="mod-rule-title">Apply Scale First (Ctrl + A)</h3>
-          <p class="mod-rule-desc">If you scaled an object in Object Mode, press <kbd>Ctrl+A</kbd> → <strong>Scale</strong> before adding <em>Bevel</em> or <em>Solidify</em> so widths stay uniform.</p>
+          <p class="mod-rule-desc">If you scaled an object in Object Mode, press <kbd>Ctrl+A</kbd> → <strong>Scale</strong> before adding <em>Bevel</em>, <em>Solidify</em>, or <em>Displace</em> so widths stay uniform.</p>
         </div>
         <div class="mod-rule-card">
           <div class="mod-rule-num">Golden Rule 03</div>
-          <h3 class="mod-rule-title">Don't Apply Too Early</h3>
-          <p class="mod-rule-desc">Keep modifiers unapplied while modeling so you can tweak or toggle them off anytime. Only press <kbd>Ctrl+A</kbd> over a modifier when exporting.</p>
+          <h3 class="mod-rule-title">Deform Needs Geometry</h3>
+          <p class="mod-rule-desc">Deform modifiers (like <em>Simple Deform</em>, <em>Displace</em>, or <em>Wave</em>) move existing vertices — add loop cuts (<kbd>Ctrl+R</kbd>) or Subdivision first!</p>
         </div>
       </div>
 
@@ -447,29 +447,7 @@
           </div>
         </div>
 
-        <!-- 7. Smooth by Angle (Blender 4.0+) -->
-        <div class="mod-card" data-category="normals">
-          <div>
-            <div class="mod-card-top">
-              <div class="mod-badges">
-                <span class="mod-badge mod-badge-norm">Normals</span>
-                <span class="mod-badge mod-badge-40">4.0+ New</span>
-              </div>
-              <span class="tip-key">Auto Smooth</span>
-            </div>
-            <h3 class="mod-title">Smooth by Angle</h3>
-            <p class="mod-desc">Replaces the old "Auto Smooth" checkbox in Blender 4.1+. Smooths curved surfaces while keeping sharp corners crisp based on an angle threshold.</p>
-            <ul class="mod-settings">
-              <li><strong>Angle:</strong> Default <code>30°</code> — faces meeting at a shallower angle look smooth; sharper edges stay crisp.</li>
-              <li><strong>Ignore Sharpness:</strong> Overrides manually marked sharp edges if enabled.</li>
-            </ul>
-          </div>
-          <div class="mod-tip">
-            <strong>💡 Quick Shortcut:</strong> In Object Mode, right-click your mesh and choose <strong>Shade Auto Smooth</strong> to add this modifier automatically.
-          </div>
-        </div>
-
-        <!-- 8. Shrinkwrap -->
+        <!-- 7. Shrinkwrap (DEFORM) -->
         <div class="mod-card" data-category="deform">
           <div>
             <div class="mod-card-top">
@@ -491,7 +469,7 @@
           </div>
         </div>
 
-        <!-- 9. Simple Deform -->
+        <!-- 8. Simple Deform (DEFORM) -->
         <div class="mod-card" data-category="deform">
           <div>
             <div class="mod-card-top">
@@ -513,7 +491,7 @@
           </div>
         </div>
 
-        <!-- 10. Curve -->
+        <!-- 9. Curve (DEFORM) -->
         <div class="mod-card" data-category="deform">
           <div>
             <div class="mod-card-top">
@@ -532,6 +510,138 @@
           </div>
           <div class="mod-tip">
             <strong>💡 Common Fix:</strong> Keep both the mesh and the curve at the exact same Origin location (<kbd>Alt+G</kbd>) so the mesh doesn't fly off into space.
+          </div>
+        </div>
+
+        <!-- 10. Displace (DEFORM — NEW) -->
+        <div class="mod-card" data-category="deform">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-def">Deform</span>
+                <span class="mod-badge mod-badge-lvl">Beginner</span>
+              </div>
+              <span class="tip-key">Terrain &amp; Bumps</span>
+            </div>
+            <h3 class="mod-title">Displace</h3>
+            <p class="mod-desc">Pushes vertices outward or inward using a 2D heightmap or procedural texture (like Clouds or Voronoi) — perfect for mountains, rocks, and ripples.</p>
+            <ul class="mod-settings">
+              <li><strong>Texture:</strong> Click <code>New</code> to create a height texture, then edit it in the Texture Properties tab.</li>
+              <li><strong>Strength &amp; Midlevel:</strong> Controls bump height (lower <code>Strength</code> to <code>0.1–0.3</code> for subtle surface detail).</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Common Fix:</strong> Displace only moves existing vertices — place a <em>Subdivision Surface</em> modifier (level 4–5) <strong>above</strong> Displace for smooth terrain!
+          </div>
+        </div>
+
+        <!-- 11. Lattice (DEFORM — NEW) -->
+        <div class="mod-card" data-category="deform">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-def">Deform</span>
+                <span class="mod-badge mod-badge-lvl">Intermediate</span>
+              </div>
+              <span class="tip-key">3D Cage Warp</span>
+            </div>
+            <h3 class="mod-title">Lattice</h3>
+            <p class="mod-desc">Deforms a detailed high-poly object using a simple low-resolution 3D cage (<code>Shift+A → Lattice</code>) — great for cartoon squash-and-stretch or reshaping complex props.</p>
+            <ul class="mod-settings">
+              <li><strong>Object:</strong> Pick the <code>Lattice</code> cage object you placed around your mesh.</li>
+              <li><strong>Lattice Resolution (U, V, W):</strong> Adjust cage subdivisions in the Lattice Data tab before editing it.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Pro Tip:</strong> Scale the Lattice cage to fit your object in <em>Object Mode</em> first, then switch the Lattice to <em>Edit Mode</em> (<kbd>Tab</kbd>) to warp your mesh!
+          </div>
+        </div>
+
+        <!-- 12. Armature (DEFORM — NEW) -->
+        <div class="mod-card" data-category="deform">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-def">Deform</span>
+                <span class="mod-badge mod-badge-lvl">Intermediate</span>
+              </div>
+              <span class="tip-key">Character Rigging</span>
+            </div>
+            <h3 class="mod-title">Armature</h3>
+            <p class="mod-desc">Binds a 3D mesh to a skeleton of bones so character limbs, creatures, and mechanical joints bend smoothly when animated in Pose Mode.</p>
+            <ul class="mod-settings">
+              <li><strong>Object:</strong> Select your Armature rig (added automatically when parenting with <kbd>Ctrl+P</kbd> → <em>With Automatic Weights</em>).</li>
+              <li><strong>Preserve Volume:</strong> Tick this checkbox to prevent elbows and knees from pinching when bent sharply.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Pro Tip:</strong> Put the <em>Armature</em> modifier <strong>above</strong> <em>Subdivision Surface</em> in the stack so your viewport stays fast while animating!
+          </div>
+        </div>
+
+        <!-- 13. Wave (DEFORM — NEW) -->
+        <div class="mod-card" data-category="deform">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-def">Deform</span>
+                <span class="mod-badge mod-badge-lvl">Beginner</span>
+              </div>
+              <span class="tip-key">Animated Ripples</span>
+            </div>
+            <h3 class="mod-title">Wave</h3>
+            <p class="mod-desc">Creates animated circular or linear wave ripples across a mesh automatically when you press <kbd>Spacebar</kbd> — ideal for water puddles, flags, and energy rings.</p>
+            <ul class="mod-settings">
+              <li><strong>Motion (X / Y &amp; Cyclic):</strong> Choose linear waves along one axis or circular ripples radiating from the center.</li>
+              <li><strong>Height, Width &amp; Narrowness:</strong> Control wave amplitude and spacing without setting keyframes.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Pro Tip:</strong> Add a subdivided Plane (<kbd>Shift+A</kbd> → Plane, then subdivide in Edit Mode) and press <kbd>Spacebar</kbd> to see the wave animate immediately!
+          </div>
+        </div>
+
+        <!-- 14. Smooth by Angle (NORMALS & 4.0+) -->
+        <div class="mod-card" data-category="normals">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-norm">Normals</span>
+                <span class="mod-badge mod-badge-40">4.0+ New</span>
+              </div>
+              <span class="tip-key">Auto Smooth</span>
+            </div>
+            <h3 class="mod-title">Smooth by Angle</h3>
+            <p class="mod-desc">Replaces the old "Auto Smooth" checkbox in Blender 4.1+. Smooths curved surfaces while keeping sharp corners crisp based on an angle threshold.</p>
+            <ul class="mod-settings">
+              <li><strong>Angle:</strong> Default <code>30°</code> — faces meeting at a shallower angle look smooth; sharper edges stay crisp.</li>
+              <li><strong>Ignore Sharpness:</strong> Overrides manually marked sharp edges if enabled.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Quick Shortcut:</strong> In Object Mode, right-click your mesh and choose <strong>Shade Auto Smooth</strong> to add this modifier automatically.
+          </div>
+        </div>
+
+        <!-- 15. Weighted Normal (NORMALS — NEW) -->
+        <div class="mod-card" data-category="normals">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-norm">Normals</span>
+                <span class="mod-badge mod-badge-lvl">Intermediate</span>
+              </div>
+              <span class="tip-key">Clean Shading</span>
+            </div>
+            <h3 class="mod-title">Weighted Normal</h3>
+            <p class="mod-desc">Fixes weird dark shading gradients on beveled hard-surface models by weighting vertex normals toward larger flat faces.</p>
+            <ul class="mod-settings">
+              <li><strong>Weighting Mode:</strong> Keep on <code>Face Area</code> so large flat panels stay perfectly flat in reflections.</li>
+              <li><strong>Keep Sharp:</strong> Tick this option so sharp seams and bevel boundaries stay crisp.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Pro Tip:</strong> Place <em>Weighted Normal</em> at the <strong>very bottom</strong> of your modifier stack (right below <em>Bevel</em> and <em>Smooth by Angle</em>).
           </div>
         </div>
 
