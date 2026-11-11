@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modifiers — BlendBridge</title>
+  <link rel="stylesheet" href="style-landing.css">
+  <link rel="manifest" href="manifest.json">
+  <style>
+    /* ── MODIFIERS PAGE STYLES (Matches BlendBridge Dark/Light Theme) ── */
+    .mod-hero {
+      padding: 4.5rem 1.5rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .mod-hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .mod-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.8rem 1.1rem;
+      max-width: 620px;
+      margin: 1.75rem 0 1.25rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .mod-search-wrap:focus-within {
+      border-color: #ff7a00;
+      box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.15);
+    }
+    .mod-search-wrap svg {
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .mod-search-wrap input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-size: 0.95rem;
+      width: 100%;
+    }
+    .mod-count {
+      font-size: 0.8rem;
+      color: #ff7a00;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .mod-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 0.5rem;
+    }
+    .mcat-btn {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .mcat-btn:hover {
+      color: var(--text);
+      border-color: rgba(255, 122, 0, 0.4);
+    }
+    .mcat-btn.active {
+      background: #ff7a00;
+      color: #ffffff;
+      border-color: #ff7a00;
+    }
+    .mod-body {
+      padding: 3rem 1.5rem 5rem;
+      background: var(--bg);
+    }
+    .mod-body-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .mod-rules-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .mod-rule-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid #ff7a00;
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+    }
+    .mod-rule-num {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #ff7a00;
+      margin-bottom: 0.25rem;
+    }
+    .mod-rule-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.3rem;
+    }
+    .mod-rule-desc {
+      font-size: 0.84rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin: 0;
+    }
+    .mod-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    .mod-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .mod-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 122, 0, 0.4);
+    }
+    .mod-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .mod-badges {
+      display: flex;
+      gap: 0.45rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .mod-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+    }
+    .mod-badge-gen {
+      background: rgba(255, 122, 0, 0.14);
+      color: #ff7a00;
+      border: 1px solid rgba(255, 122, 0, 0.3);
+    }
+    .mod-badge-def {
+      background: rgba(74, 158, 255, 0.14);
+      color: #4a9eff;
+      border: 1px solid rgba(74, 158, 255, 0.3);
+    }
+    .mod-badge-norm {
+      background: rgba(199, 125, 255, 0.14);
+      color: #c77dff;
+      border: 1px solid rgba(199, 125, 255, 0.3);
+    }
+    .mod-badge-lvl {
+      background: rgba(29, 158, 117, 0.14);
+      color: #2ec492;
+      border: 1px solid rgba(29, 158, 117, 0.3);
+    }
+    .mod-badge-40 {
+      background: rgba(255, 209, 102, 0.16);
+      color: #ffd166;
+      border: 1px solid rgba(255, 209, 102, 0.35);
+    }
+    .mod-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.5rem;
+    }
+    .mod-desc {
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: var(--text-muted);
+      margin: 0 0 1rem;
+    }
+    .mod-settings {
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: var(--text);
+      margin: 0 0 1rem;
+      padding-left: 1.1rem;
+    }
+    .mod-settings li {
+      margin-bottom: 0.3rem;
+    }
+    .mod-tip {
+      background: var(--bg-surface, rgba(255, 255, 255, 0.03));
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 0.95rem;
+      font-size: 0.84rem;
+      line-height: 1.45;
+      color: var(--text-muted);
+    }
+    .mod-tip strong {
+      color: #ff7a00;
+    }
+    .mod-fig {
+      margin: 0.65rem 0 0.9rem;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #0d1117;
+    }
+    .mod-fig svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .mod-no-results {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+    @media (max-width: 860px) {
+      .mod-grid, .mod-rules-strip {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <div class="logo-icon"><div class="logo-ring"></div><div class="logo-dot"></div></div>
+        <span class="logo-text">Blend<span class="logo-accent">Bridge</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="shortcuts.html" class="nav-link">Shortcuts</a></li>
+        <li><a href="modifiers.html" class="nav-link active">Modifiers</a></li>
+        <li><a href="index.html#workspaces" class="nav-link">Workspaces</a></li>
+        <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
+        <li><a href="glossary.html" class="nav-link">Glossary</a></li>
+        <li><a href="errors.html" class="nav-link">Errors</a></li>
+        <li><a href="practice.html" class="nav-link">Practice &amp; Quiz</a></li>
+      </ul>
+      <div class="nav-right">
+        <span class="version-badge">Blender 4.x</span>
+        <button class="dark-mode-toggle" id="darkToggle" aria-label="Toggle dark mode">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="nav-cta" onclick="location.href='index.html#start'">Get Started</button>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="mod-hero">
+    <div class="mod-hero-inner">
+      <span class="section-eyebrow">Non-Destructive Modeling</span>
+      <h1 class="section-title">Blender Modifiers</h1>
+      <p class="section-desc">Modifiers let you smooth, mirror, thicken, deform, and duplicate 3D objects automatically — without permanently changing your base mesh.</p>
+
+      <div class="mod-search-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="modSearch" placeholder="Search 15 modifiers... (e.g. mirror, displace, lattice, armature, wave)" autocomplete="off" />
+        <span id="modCount" class="mod-count"></span>
+      </div>
+
+      <div class="mod-filters">
+        <button class="mcat-btn active" data-cat="all">All Modifiers (15)</button>
+        <button class="mcat-btn" data-cat="generate">Generate (6)</button>
+        <button class="mcat-btn" data-cat="deform">Deform (7)</button>
+        <button class="mcat-btn" data-cat="normals">Normals &amp; 4.0+ (2)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <section class="mod-body">
+    <div class="mod-body-inner">
+
+      <!-- 3 Golden Rules -->
+      <div class="mod-rules-strip">
+        <div class="mod-rule-card">
+          <div class="mod-rule-num">Golden Rule 01</div>
+          <h3 class="mod-rule-title">Stack Order Matters</h3>
+          <p class="mod-rule-desc">Blender calculates modifiers from <strong>top to bottom</strong>. Drag <em>Mirror</em> above <em>Subdivision Surface</em> so the center seam welds cleanly.</p>
+        </div>
+        <div class="mod-rule-card">
+          <div class="mod-rule-num">Golden Rule 02</div>
+          <h3 class="mod-rule-title">Apply Scale First (Ctrl + A)</h3>
+          <p class="mod-rule-desc">If you scaled an object in Object Mode, press <kbd>Ctrl+A</kbd> → <strong>Scale</strong> before adding <em>Bevel</em>, <em>Solidify</em>, or <em>Displace</em> so widths stay uniform.</p>
+        </div>
+        <div class="mod-rule-card">
+          <div class="mod-rule-num">Golden Rule 03</div>
+          <h3 class="mod-rule-title">Deform Needs Geometry</h3>
+          <p class="mod-rule-desc">Deform modifiers (like <em>Simple Deform</em>, <em>Displace</em>, or <em>Wave</em>) move existing vertices — add loop cuts (<kbd>Ctrl+R</kbd>) or Subdivision first!</p>
+        </div>
+      </div>
+
+      <div id="noModResults" class="mod-no-results" style="display:none;">
+        No modifiers found. Try searching another keyword.
+      </div>
+
+      <div class="mod-grid" id="modGrid">
+
+        <!-- 1. Subdivision Surface -->
+        <div class="mod-card" data-category="generate">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-gen">Generate</span>
+                <span class="mod-badge mod-badge-lvl">Beginner</span>
+              </div>
+              <span class="tip-key">Ctrl + 1 / 2 / 3</span>
+            </div>
+            <h3 class="mod-title">Subdivision Surface</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><rect x="48" y="16" width="44" height="44" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/><text x="45" y="71" fill="#94a3b8" font-size="9" font-family="sans-serif">Low-Poly Cube</text><text x="148" y="42" fill="#ff7a00" font-size="16" font-family="sans-serif" font-weight="bold">→</text><circle cx="242" cy="38" r="23" fill="#1e293b" stroke="#ff7a00" stroke-width="2"/><ellipse cx="242" cy="38" rx="23" ry="9" fill="none" stroke="#ff7a00" stroke-width="1"/><ellipse cx="242" cy="38" rx="9" ry="23" fill="none" stroke="#ff7a00" stroke-width="1"/><text x="206" y="71" fill="#ff7a00" font-size="9" font-family="sans-serif">Smooth Subdivided</text></svg></div>
+            <p class="mod-desc">Divides each face into smaller faces to turn a blocky low-poly mesh into a smooth, curved surface.</p>
+            <ul class="mod-settings">
+              <li><strong>Levels Viewport:</strong> Keep at <code>1</code> or <code>2</code> so your viewport stays fast.</li>
+              <li><strong>Render:</strong> Set to <code>2</code> or <code>3</code> for smooth final renders.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Pro Tip:</strong> Add support loops (<kbd>Ctrl+R</kbd>) near edges you want to keep sharp instead of cranking subdivision levels above 3.
+          </div>
+        </div>
+
+        <!-- 2. Mirror -->
+        <div class="mod-card" data-category="generate">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-gen">Generate</span>
+                <span class="mod-badge mod-badge-lvl">Beginner</span>
+              </div>
+              <span class="tip-key">Symmetry</span>
+            </div>
+            <h3 class="mod-title">Mirror</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><line x1="160" y1="8" x2="160" y2="68" stroke="#ff7a00" stroke-width="1.5" stroke-dasharray="4,3"/><polygon points="158,18 110,26 102,54 158,58" fill="#1e293b" stroke="#4a9eff" stroke-width="2"/><polygon points="162,18 210,26 218,54 162,58" fill="rgba(255,122,0,0.18)" stroke="#ff7a00" stroke-width="2" stroke-dasharray="3,2"/><circle cx="160" cy="38" r="3.5" fill="#ff7a00"/><text x="90" y="71" fill="#4a9eff" font-size="9" font-family="sans-serif">Real Half</text><text x="176" y="71" fill="#ff7a00" font-size="9" font-family="sans-serif">Mirrored Half (X)</text></svg></div>
+            <p class="mod-desc">Automatically mirrors your mesh across the X, Y, or Z axis around the object's orange Origin dot — model half a character or car and get the other half free.</p>
+            <ul class="mod-settings">
+              <li><strong>Axis (X / Y / Z):</strong> Choose which axis to mirror across (usually <code>X</code>).</li>
+              <li><strong>Clipping:</strong> Turn this <strong>ON</strong> so center vertices stick together and don't pull apart.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Common Fix:</strong> If both halves overlap in the same spot, your object's Origin dot is off-center — move the mesh in <em>Edit Mode</em> away from the orange dot.
+          </div>
+        </div>
+
+        <!-- 3. Bevel -->
+        <div class="mod-card" data-category="generate">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-gen">Generate</span>
+                <span class="mod-badge mod-badge-lvl">Beginner</span>
+              </div>
+              <span class="tip-key">Sharp Edges</span>
+            </div>
+            <h3 class="mod-title">Bevel</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><rect x="46" y="16" width="44" height="42" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/><text x="42" y="70" fill="#94a3b8" font-size="9" font-family="sans-serif">Sharp 90° Edge</text><text x="148" y="42" fill="#ff7a00" font-size="16" font-family="sans-serif" font-weight="bold">→</text><rect x="216" y="16" width="46" height="42" rx="10" fill="#1e293b" stroke="#ff7a00" stroke-width="2.2"/><text x="204" y="70" fill="#ff7a00" font-size="9" font-family="sans-serif">Rounded Bevel Edge</text></svg></div>
+            <p class="mod-desc">Rounds off razor-sharp 90° edges across your entire object so light catches the corners realistically.</p>
+            <ul class="mod-settings">
+              <li><strong>Amount &amp; Segments:</strong> Set how wide the bevel is and how many rounded cuts (<code>2–3</code> segments) it uses.</li>
+              <li><strong>Limit Method → Angle:</strong> Only bevels edges sharper than <code>30°</code>.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Pro Tip:</strong> Turn on <strong>Geometry → Harden Normals</strong> inside the Bevel modifier for clean, flat shading on hard-surface models.
+          </div>
+        </div>
+
+        <!-- 4. Solidify -->
+        <div class="mod-card" data-category="generate">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-gen">Generate</span>
+                <span class="mod-badge mod-badge-lvl">Beginner</span>
+              </div>
+              <span class="tip-key">Thickness</span>
+            </div>
+            <h3 class="mod-title">Solidify</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><line x1="36" y1="40" x2="106" y2="26" stroke="#94a3b8" stroke-width="2.5"/><text x="40" y="70" fill="#94a3b8" font-size="9" font-family="sans-serif">Flat Thin Plane</text><text x="148" y="42" fill="#ff7a00" font-size="16" font-family="sans-serif" font-weight="bold">→</text><polygon points="200,34 270,20 270,40 200,54" fill="rgba(255,122,0,0.22)" stroke="#ff7a00" stroke-width="2"/><text x="202" y="70" fill="#ff7a00" font-size="9" font-family="sans-serif">3D Wall Thickness</text></svg></div>
+            <p class="mod-desc">Adds real 3D wall thickness to a flat plane or thin surface — essential for modeling cups, bowls, clothing, walls, and helmets.</p>
+            <ul class="mod-settings">
+              <li><strong>Thickness:</strong> Controls how thick the wall becomes.</li>
+              <li><strong>Even Thickness:</strong> Tick this checkbox to prevent corners from pinching.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Pro Tip:</strong> Used in the classic Blender Donut tutorial to give the icing layer realistic thickness over the donut mesh.
+          </div>
+        </div>
+
+        <!-- 5. Boolean -->
+        <div class="mod-card" data-category="generate">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-gen">Generate</span>
+                <span class="mod-badge mod-badge-lvl">Intermediate</span>
+              </div>
+              <span class="tip-key">Cut &amp; Join</span>
+            </div>
+            <h3 class="mod-title">Boolean</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><rect x="42" y="18" width="44" height="40" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/><circle cx="86" cy="38" r="16" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/><text x="38" y="70" fill="#94a3b8" font-size="9" font-family="sans-serif">Base + Cutter</text><text x="148" y="42" fill="#ff7a00" font-size="16" font-family="sans-serif" font-weight="bold">→</text><path d="M 212 18 H 256 V 24 A 14 14 0 0 0 256 52 V 58 H 212 Z" fill="#1e293b" stroke="#ff7a00" stroke-width="2"/><text x="202" y="70" fill="#ff7a00" font-size="9" font-family="sans-serif">Carved Boolean Cut</text></svg></div>
+            <p class="mod-desc">Cuts holes into a mesh or combines two overlapping objects using <strong>Difference</strong> (subtract), <strong>Union</strong> (merge), or <strong>Intersect</strong>.</p>
+            <ul class="mod-settings">
+              <li><strong>Object:</strong> Use the eyedropper to pick the cutter mesh.</li>
+              <li><strong>Solver (Fast vs. Exact):</strong> Switch to <code>Fast</code> if <code>Exact</code> leaves a hole or disappears.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Common Fix:</strong> Hide the cutter object in the Viewport (<kbd>H</kbd>) after adding the Boolean so you can actually see the carved hole!
+          </div>
+        </div>
+
+        <!-- 6. Array -->
+        <div class="mod-card" data-category="generate">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-gen">Generate</span>
+                <span class="mod-badge mod-badge-lvl">Beginner</span>
+              </div>
+              <span class="tip-key">Repeat</span>
+            </div>
+            <h3 class="mod-title">Array</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><rect x="46" y="20" width="32" height="34" rx="3" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/><text x="40" y="70" fill="#94a3b8" font-size="9" font-family="sans-serif">1 Original Mesh</text><text x="136" y="42" fill="#ff7a00" font-size="16" font-family="sans-serif" font-weight="bold">→</text><rect x="176" y="20" width="26" height="34" rx="3" fill="#1e293b" stroke="#ff7a00" stroke-width="2"/><rect x="208" y="20" width="26" height="34" rx="3" fill="#1e293b" stroke="#ff7a00" stroke-width="2"/><rect x="240" y="20" width="26" height="34" rx="3" fill="#1e293b" stroke="#ff7a00" stroke-width="2"/><rect x="272" y="20" width="26" height="34" rx="3" fill="#1e293b" stroke="#ff7a00" stroke-width="2"/><text x="192" y="70" fill="#ff7a00" font-size="9" font-family="sans-serif">Repeated Array Copies</text></svg></div>
+            <p class="mod-desc">Creates repeating copies of an object in a row, grid, or circle — perfect for stairs, fences, chains, bricks, and pillars.</p>
+            <ul class="mod-settings">
+              <li><strong>Count:</strong> Total number of repeated copies.</li>
+              <li><strong>Relative Offset:</strong> Spacing between each copy along X, Y, or Z (e.g., <code>1.0</code> touches edge-to-edge).</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Pro Tip:</strong> Combine an <em>Array</em> modifier with a <em>Curve</em> modifier below it to make chains or tracks follow a curved path.
+          </div>
+        </div>
+
+        <!-- 7. Shrinkwrap (DEFORM) -->
+        <div class="mod-card" data-category="deform">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-def">Deform</span>
+                <span class="mod-badge mod-badge-lvl">Intermediate</span>
+              </div>
+              <span class="tip-key">Snap to Surface</span>
+            </div>
+            <h3 class="mod-title">Shrinkwrap</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><line x1="40" y1="20" x2="104" y2="20" stroke="#4a9eff" stroke-width="2.5"/><path d="M 36 52 Q 72 28 108 52" fill="none" stroke="#94a3b8" stroke-width="2"/><text x="42" y="70" fill="#94a3b8" font-size="9" font-family="sans-serif">Flat Decal Above</text><text x="148" y="42" fill="#4a9eff" font-size="16" font-family="sans-serif" font-weight="bold">→</text><path d="M 196 52 Q 232 28 268 52" fill="none" stroke="#94a3b8" stroke-width="2"/><path d="M 204 46 Q 232 27 260 46" fill="none" stroke="#4a9eff" stroke-width="3"/><text x="194" y="70" fill="#4a9eff" font-size="9" font-family="sans-serif">Snapped to Surface</text></svg></div>
+            <p class="mod-desc">Wraps and sticks one mesh tightly onto the surface of another target object — used for decals, stickers, clothing, and retopology.</p>
+            <ul class="mod-settings">
+              <li><strong>Target:</strong> Pick the base object you want to wrap onto.</li>
+              <li><strong>Offset:</strong> Add a tiny offset (e.g., <code>0.002 m</code>) so the wrapped mesh doesn't clip inside the target.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Pro Tip:</strong> Place a <em>Subdivision Surface</em> modifier <strong>above</strong> Shrinkwrap so the mesh has enough vertices to hug the curved surface smoothly.
+          </div>
+        </div>
+
+        <!-- 8. Simple Deform (DEFORM) -->
+        <div class="mod-card" data-category="deform">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-def">Deform</span>
+                <span class="mod-badge mod-badge-lvl">Beginner</span>
+              </div>
+              <span class="tip-key">Twist &amp; Bend</span>
+            </div>
+            <h3 class="mod-title">Simple Deform</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><rect x="54" y="14" width="28" height="44" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/><line x1="54" y1="28" x2="82" y2="28" stroke="#64748b"/><line x1="54" y1="44" x2="82" y2="44" stroke="#64748b"/><text x="38" y="70" fill="#94a3b8" font-size="9" font-family="sans-serif">Straight Pillar</text><text x="148" y="42" fill="#4a9eff" font-size="16" font-family="sans-serif" font-weight="bold">→</text><path d="M 212 58 Q 216 24 256 16 L 264 30 Q 234 36 232 58 Z" fill="#1e293b" stroke="#4a9eff" stroke-width="2"/><text x="196" y="70" fill="#4a9eff" font-size="9" font-family="sans-serif">Bent / Twisted Mesh</text></svg></div>
+            <p class="mod-desc">Twists, bends, tapers, or stretches a mesh along an axis — great for twisted pillars, curved ramps, horns, and stylized props.</p>
+            <ul class="mod-settings">
+              <li><strong>Mode:</strong> Choose between <code>Twist</code>, <code>Bend</code>, <code>Taper</code>, or <code>Stretch</code>.</li>
+              <li><strong>Angle / Factor &amp; Axis:</strong> Pick the deformation amount and axis (<code>X</code>, <code>Y</code>, or <code>Z</code>).</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Common Fix:</strong> A cube with only 8 vertices cannot bend smoothly — add loop cuts (<kbd>Ctrl+R</kbd>) first so the mesh has segments to bend!
+          </div>
+        </div>
+
+        <!-- 9. Curve (DEFORM) -->
+        <div class="mod-card" data-category="deform">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-def">Deform</span>
+                <span class="mod-badge mod-badge-lvl">Intermediate</span>
+              </div>
+              <span class="tip-key">Follow Path</span>
+            </div>
+            <h3 class="mod-title">Curve</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><rect x="36" y="30" width="70" height="12" rx="3" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/><text x="40" y="70" fill="#94a3b8" font-size="9" font-family="sans-serif">Straight Pipe</text><text x="148" y="42" fill="#4a9eff" font-size="16" font-family="sans-serif" font-weight="bold">→</text><path d="M 192 48 C 216 14, 248 62, 280 24" fill="none" stroke="#4a9eff" stroke-width="10" stroke-linecap="round"/><path d="M 192 48 C 216 14, 248 62, 280 24" fill="none" stroke="#ff7a00" stroke-width="1.5" stroke-dasharray="3,2"/><text x="196" y="70" fill="#4a9eff" font-size="9" font-family="sans-serif">Follows Curve Path</text></svg></div>
+            <p class="mod-desc">Bends a mesh along a Bézier or NURBS curve object — ideal for cables, pipes, roads, tentacles, and tank tracks.</p>
+            <ul class="mod-settings">
+              <li><strong>Curve Object:</strong> Select the Curve path in your scene.</li>
+              <li><strong>Deform Axis:</strong> Match the axis your mesh stretches along (usually <code>X</code> or <code>Y</code>).</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Common Fix:</strong> Keep both the mesh and the curve at the exact same Origin location (<kbd>Alt+G</kbd>) so the mesh doesn't fly off into space.
+          </div>
+        </div>
+
+        <!-- 10. Displace (DEFORM — NEW) -->
+        <div class="mod-card" data-category="deform">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-def">Deform</span>
+                <span class="mod-badge mod-badge-lvl">Beginner</span>
+              </div>
+              <span class="tip-key">Terrain &amp; Bumps</span>
+            </div>
+            <h3 class="mod-title">Displace</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><line x1="34" y1="42" x2="108" y2="42" stroke="#94a3b8" stroke-width="2.5"/><text x="36" y="70" fill="#94a3b8" font-size="9" font-family="sans-serif">Subdivided Plane</text><text x="148" y="42" fill="#4a9eff" font-size="16" font-family="sans-serif" font-weight="bold">→</text><polyline points="190,48 206,30 220,44 238,18 256,40 272,26 288,48" fill="none" stroke="#4a9eff" stroke-width="2.5" stroke-linejoin="round"/><text x="196" y="70" fill="#4a9eff" font-size="9" font-family="sans-serif">Displaced Terrain Peaks</text></svg></div>
+            <p class="mod-desc">Pushes vertices outward or inward using a 2D heightmap or procedural texture (like Clouds or Voronoi) — perfect for mountains, rocks, and ripples.</p>
+            <ul class="mod-settings">
+              <li><strong>Texture:</strong> Click <code>New</code> to create a height texture, then edit it in the Texture Properties tab.</li>
+              <li><strong>Strength &amp; Midlevel:</strong> Controls bump height (lower <code>Strength</code> to <code>0.1–0.3</code> for subtle surface detail).</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Common Fix:</strong> Displace only moves existing vertices — place a <em>Subdivision Surface</em> modifier (level 4–5) <strong>above</strong> Displace for smooth terrain!
+          </div>
+        </div>
+
+        <!-- 11. Lattice (DEFORM — NEW) -->
+        <div class="mod-card" data-category="deform">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-def">Deform</span>
+                <span class="mod-badge mod-badge-lvl">Intermediate</span>
+              </div>
+              <span class="tip-key">3D Cage Warp</span>
+            </div>
+            <h3 class="mod-title">Lattice</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><circle cx="70" cy="38" r="18" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/><rect x="46" y="16" width="48" height="44" fill="none" stroke="#ffd166" stroke-width="1.2" stroke-dasharray="3,2"/><text x="42" y="70" fill="#94a3b8" font-size="9" font-family="sans-serif">Lattice Cage</text><text x="148" y="42" fill="#4a9eff" font-size="16" font-family="sans-serif" font-weight="bold">→</text><polygon points="204,14 276,24 262,56 216,56" fill="none" stroke="#ffd166" stroke-width="1.2" stroke-dasharray="3,2"/><ellipse cx="240" cy="38" rx="24" ry="15" transform="rotate(-10 240 38)" fill="#1e293b" stroke="#4a9eff" stroke-width="2"/><text x="196" y="70" fill="#4a9eff" font-size="9" font-family="sans-serif">Warped by Cage</text></svg></div>
+            <p class="mod-desc">Deforms a detailed high-poly object using a simple low-resolution 3D cage (<code>Shift+A → Lattice</code>) — great for cartoon squash-and-stretch or reshaping complex props.</p>
+            <ul class="mod-settings">
+              <li><strong>Object:</strong> Pick the <code>Lattice</code> cage object you placed around your mesh.</li>
+              <li><strong>Lattice Resolution (U, V, W):</strong> Adjust cage subdivisions in the Lattice Data tab before editing it.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Pro Tip:</strong> Scale the Lattice cage to fit your object in <em>Object Mode</em> first, then switch the Lattice to <em>Edit Mode</em> (<kbd>Tab</kbd>) to warp your mesh!
+          </div>
+        </div>
+
+        <!-- 12. Armature (DEFORM — NEW) -->
+        <div class="mod-card" data-category="deform">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-def">Deform</span>
+                <span class="mod-badge mod-badge-lvl">Intermediate</span>
+              </div>
+              <span class="tip-key">Character Rigging</span>
+            </div>
+            <h3 class="mod-title">Armature</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><rect x="38" y="30" width="72" height="16" rx="6" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/><line x1="46" y1="38" x2="102" y2="38" stroke="#ffd166" stroke-width="2.5"/><circle cx="74" cy="38" r="3.5" fill="#ff7a00"/><text x="42" y="70" fill="#94a3b8" font-size="9" font-family="sans-serif">Mesh + Bone Rig</text><text x="148" y="42" fill="#4a9eff" font-size="16" font-family="sans-serif" font-weight="bold">→</text><path d="M 196 44 L 236 44 L 264 20" fill="none" stroke="#4a9eff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><polyline points="196,44 236,44 264,20" fill="none" stroke="#ffd166" stroke-width="2.5"/><circle cx="236" cy="44" r="3.5" fill="#ff7a00"/><text x="200" y="70" fill="#4a9eff" font-size="9" font-family="sans-serif">Posed Limb Bend</text></svg></div>
+            <p class="mod-desc">Binds a 3D mesh to a skeleton of bones so character limbs, creatures, and mechanical joints bend smoothly when animated in Pose Mode.</p>
+            <ul class="mod-settings">
+              <li><strong>Object:</strong> Select your Armature rig (added automatically when parenting with <kbd>Ctrl+P</kbd> → <em>With Automatic Weights</em>).</li>
+              <li><strong>Preserve Volume:</strong> Tick this checkbox to prevent elbows and knees from pinching when bent sharply.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Pro Tip:</strong> Put the <em>Armature</em> modifier <strong>above</strong> <em>Subdivision Surface</em> in the stack so your viewport stays fast while animating!
+          </div>
+        </div>
+
+        <!-- 13. Wave (DEFORM — NEW) -->
+        <div class="mod-card" data-category="deform">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-def">Deform</span>
+                <span class="mod-badge mod-badge-lvl">Beginner</span>
+              </div>
+              <span class="tip-key">Animated Ripples</span>
+            </div>
+            <h3 class="mod-title">Wave</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><path d="M 30 38 Q 48 16, 66 38 T 102 38 T 138 38" fill="none" stroke="#4a9eff" stroke-width="2.5"/><circle cx="236" cy="36" r="8" fill="none" stroke="#4a9eff" stroke-width="2"/><circle cx="236" cy="36" r="17" fill="none" stroke="#4a9eff" stroke-width="1.5" opacity="0.7"/><circle cx="236" cy="36" r="26" fill="none" stroke="#4a9eff" stroke-width="1" opacity="0.4"/><text x="42" y="70" fill="#4a9eff" font-size="9" font-family="sans-serif">Linear Wave Motion</text><text x="192" y="70" fill="#4a9eff" font-size="9" font-family="sans-serif">Circular Ripple Wave</text></svg></div>
+            <p class="mod-desc">Creates animated circular or linear wave ripples across a mesh automatically when you press <kbd>Spacebar</kbd> — ideal for water puddles, flags, and energy rings.</p>
+            <ul class="mod-settings">
+              <li><strong>Motion (X / Y &amp; Cyclic):</strong> Choose linear waves along one axis or circular ripples radiating from the center.</li>
+              <li><strong>Height, Width &amp; Narrowness:</strong> Control wave amplitude and spacing without setting keyframes.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Pro Tip:</strong> Add a subdivided Plane (<kbd>Shift+A</kbd> → Plane, then subdivide in Edit Mode) and press <kbd>Spacebar</kbd> to see the wave animate immediately!
+          </div>
+        </div>
+
+        <!-- 14. Smooth by Angle (NORMALS & 4.0+) -->
+        <div class="mod-card" data-category="normals">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-norm">Normals</span>
+                <span class="mod-badge mod-badge-40">4.0+ New</span>
+              </div>
+              <span class="tip-key">Auto Smooth</span>
+            </div>
+            <h3 class="mod-title">Smooth by Angle</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><polygon points="46,20 96,20 96,54 46,54" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/><line x1="62" y1="20" x2="62" y2="54" stroke="#64748b"/><line x1="78" y1="20" x2="78" y2="54" stroke="#64748b"/><text x="38" y="70" fill="#94a3b8" font-size="9" font-family="sans-serif">Faceted Flat Cylinder</text><text x="148" y="42" fill="#c77dff" font-size="16" font-family="sans-serif" font-weight="bold">→</text><rect x="210" y="20" width="52" height="34" rx="2" fill="#2e2344" stroke="#c77dff" stroke-width="2"/><text x="190" y="70" fill="#c77dff" font-size="9" font-family="sans-serif">Smooth Sides + Sharp Cap</text></svg></div>
+            <p class="mod-desc">Replaces the old "Auto Smooth" checkbox in Blender 4.1+. Smooths curved surfaces while keeping sharp corners crisp based on an angle threshold.</p>
+            <ul class="mod-settings">
+              <li><strong>Angle:</strong> Default <code>30°</code> — faces meeting at a shallower angle look smooth; sharper edges stay crisp.</li>
+              <li><strong>Ignore Sharpness:</strong> Overrides manually marked sharp edges if enabled.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Quick Shortcut:</strong> In Object Mode, right-click your mesh and choose <strong>Shade Auto Smooth</strong> to add this modifier automatically.
+          </div>
+        </div>
+
+        <!-- 15. Weighted Normal (NORMALS — NEW) -->
+        <div class="mod-card" data-category="normals">
+          <div>
+            <div class="mod-card-top">
+              <div class="mod-badges">
+                <span class="mod-badge mod-badge-norm">Normals</span>
+                <span class="mod-badge mod-badge-lvl">Intermediate</span>
+              </div>
+              <span class="tip-key">Clean Shading</span>
+            </div>
+            <h3 class="mod-title">Weighted Normal</h3>
+            <div class="mod-fig"><svg viewBox="0 0 320 76" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="76" fill="#0d1117"/><rect x="44" y="18" width="48" height="38" rx="6" fill="#1e293b" stroke="#94a3b8" stroke-width="1.5"/><line x1="50" y1="24" x2="86" y2="50" stroke="#64748b" stroke-dasharray="2,2"/><text x="34" y="70" fill="#94a3b8" font-size="9" font-family="sans-serif">Warped Bevel Shading</text><text x="148" y="42" fill="#c77dff" font-size="16" font-family="sans-serif" font-weight="bold">→</text><rect x="210" y="18" width="48" height="38" rx="6" fill="#231d33" stroke="#c77dff" stroke-width="2"/><rect x="217" y="24" width="34" height="26" fill="#13111c" stroke="#c77dff" stroke-width="1"/><text x="194" y="70" fill="#c77dff" font-size="9" font-family="sans-serif">Crisp Flat Face Normals</text></svg></div>
+            <p class="mod-desc">Fixes weird dark shading gradients on beveled hard-surface models by weighting vertex normals toward larger flat faces.</p>
+            <ul class="mod-settings">
+              <li><strong>Weighting Mode:</strong> Keep on <code>Face Area</code> so large flat panels stay perfectly flat in reflections.</li>
+              <li><strong>Keep Sharp:</strong> Tick this option so sharp seams and bevel boundaries stay crisp.</li>
+            </ul>
+          </div>
+          <div class="mod-tip">
+            <strong>💡 Pro Tip:</strong> Place <em>Weighted Normal</em> at the <strong>very bottom</strong> of your modifier stack (right below <em>Bevel</em> and <em>Smooth by Angle</em>).
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html">
+            <div class="logo-icon"><div class="logo-ring"></div><div class="logo-dot"></div></div>
+            <span class="logo-text">Blend<span class="logo-accent">Bridge</span></span>
+          </a>
+          <p class="footer-tagline">A beginner-friendly guide to Blender — built by learners, for learners.</p>
+          <span class="footer-version">For Blender 4.x</span>
+        </div>
+        <div class="footer-links-group">
+          <div class="footer-col">
+            <h4 class="footer-col-title">Learn</h4>
+            <ul>
+              <li><a href="index.html#download">Download &amp; Setup</a></li>
+              <li><a href="index.html#start">Getting Started</a></li>
+              <li><a href="index.html#workspaces">Workspaces</a></li>
+              <li><a href="index.html#tips">Beginner Tips</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-title">Reference</h4>
+            <ul>
+              <li><a href="shortcuts.html">All Shortcuts</a></li>
+              <li><a href="modifiers.html">Modifiers</a></li>
+              <li><a href="tutorials.html">Tutorials</a></li>
+              <li><a href="glossary.html">Glossary</a></li>
+              <li><a href="errors.html">Common Errors</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-title">Official</h4>
+            <ul>
+              <li><a href="https://www.blender.org" target="_blank" rel="noopener">Blender.org ↗</a></li>
+              <li><a href="https://docs.blender.org" target="_blank" rel="noopener">Official Docs ↗</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">Not affiliated with the Blender Foundation. Made for educational purposes.</p>
+        <div class="footer-bottom-links"><a href="#">Back to top ↑</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SIDE DRAWER -->
+  <div class="sd-overlay" id="sdOverlay"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <div class="sd-header">
+      <span class="sd-logo">Blend<span style="color:var(--accent)">Bridge</span></span>
+      <button class="sd-close" id="sdClose" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="sd-nav">
+      <a href="index.html" class="sd-link"><span class="sd-icon">🏠</span>Home</a>
+      <a href="shortcuts.html" class="sd-link"><span class="sd-icon">⌨️</span>Shortcuts</a>
+      <a href="modifiers.html" class="sd-link active"><span class="sd-icon">🔧</span>Modifiers</a>
+      <a href="index.html#workspaces" class="sd-link"><span class="sd-icon">🖥️</span>Workspaces</a>
+      <a href="tutorials.html" class="sd-link"><span class="sd-icon">🎬</span>Tutorials</a>
+      <a href="glossary.html" class="sd-link"><span class="sd-icon">📖</span>Glossary</a>
+      <a href="errors.html" class="sd-link"><span class="sd-icon">⚠️</span>Errors</a>
+      <a href="practice.html" class="sd-link"><span class="sd-icon">🎯</span>Practice &amp; Quiz</a>
+    </nav>
+    <div class="sd-footer"><span class="sd-footer-text">For Blender 4.x</span></div>
+  </div>
+
+  <script>
+    // ── Dark / Light Mode Toggle (with localStorage sync) ──
+    const darkToggle = document.getElementById('darkToggle');
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    if (darkToggle) {
+      darkToggle.addEventListener('click', () => {
+        const next = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    }
+
+    // ── Hamburger / Side Drawer ──
+    const ham     = document.getElementById('hamburger');
+    const drawer  = document.getElementById('sideDrawer');
+    const overlay = document.getElementById('sdOverlay');
+    const sdClose = document.getElementById('sdClose');
+    function openDrawer() {
+      if (drawer) drawer.classList.add('open');
+      if (overlay) overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      if (drawer) drawer.classList.remove('open');
+      if (overlay) overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    if (ham)     ham.addEventListener('click', openDrawer);
+    if (sdClose) sdClose.addEventListener('click', closeDrawer);
+    if (overlay) overlay.addEventListener('click', closeDrawer);
+    if (drawer) {
+      drawer.querySelectorAll('a').forEach(link => link.addEventListener('click', closeDrawer));
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+    // ── Modifiers Live Search + Category Filter ──
+    let activeModCat = 'all';
+    const modSearch = document.getElementById('modSearch');
+    const modCards  = document.querySelectorAll('.mod-card');
+    const modBtns   = document.querySelectorAll('.mcat-btn');
+    const modCount  = document.getElementById('modCount');
+    const noModRes  = document.getElementById('noModResults');
+
+    function filterModifiers() {
+      const q = (modSearch ? modSearch.value : '').toLowerCase().trim();
+      let visible = 0;
+
+      modCards.forEach(card => {
+        const catMatch  = activeModCat === 'all' || card.dataset.category === activeModCat;
+        const textMatch = q === '' || card.textContent.toLowerCase().includes(q);
+        if (catMatch && textMatch) {
+          card.style.display = '';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (noModRes) noModRes.style.display = visible === 0 ? 'block' : 'none';
+      if (modCount) {
+        modCount.textContent = (q || activeModCat !== 'all')
+          ? `${visible} modifier${visible !== 1 ? 's' : ''} found`
+          : '';
+      }
+    }
+
+    if (modSearch) modSearch.addEventListener('input', filterModifiers);
+
+    modBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        modBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeModCat = btn.dataset.cat;
+        filterModifiers();
+      });
+    });
+
+    // ── PWA Offline Service Worker Registration ──
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
